@@ -1,0 +1,1 @@
+FIlesConverter.exe -nifToObj -in="D:\WAR Tools\Extracted\assetdb\fixtures" -out="D:\WAR Tools\Files Converter\raw obj"

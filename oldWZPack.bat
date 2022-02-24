@@ -1,0 +1,1 @@
+FIlesConverter.exe -packWZ -in="D:\WAR Tools\Files Converter\zones" -out="D:\WAR Tools\Files Converter\old wz"

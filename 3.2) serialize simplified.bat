@@ -1,0 +1,1 @@
+FIlesConverter.exe -serialize -in="D:\WAR Tools\Files Converter\simplified" -out="D:\WAR Tools\Files Converter\lod binaries"

@@ -1,0 +1,1 @@
+FIlesConverter.exe -water -in="D:\Repos\Krubster\WAAAAGH\bin\Debug\Zones" -out="D:\WAR Tools\Files Converter\zones"

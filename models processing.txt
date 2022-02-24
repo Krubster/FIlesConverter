@@ -1,0 +1,51 @@
+1) Download the new Client and install
+
+http://www.returnofreckoning.com/forum/viewtopic.php?t=16&sid=5ef23328356f02d924f8c39d1d4c53bd 
+
+Use Mozilla FireFox with Mega addon 
+mega:#F!VhQzBCbL!lPx3fe1a3k9MkP1L7hdpqQ
+
+
+2) Download EasyMYP Release_v2.6.rar with Hash_v1.6.rar (extract into new fodler called HASH inside EasyMYP, as hashes_filename.txt is the dictionary to give real names to files. Run the program and File -> Select Extraction Folder -> Then select Archive and Open Archive art.myp and let it load for a few mins. Then view Archive File List to see legible file names. File -> Extract All will create a new art inside your chosen extracted folder. Art\assetsdb\textures contains all scenery model .stx images (simply rename them to .dds) and Art2\assetsdb\fixtures has all the scenery .nif 3d models. Art2\assetsdb\charmesh has all the 3d character .geom models 
+
+https://code.google.com/archive/p/easymyp/downloads
+
+Newer version but more for Star Wars SWTOR game and dictionary 
+https://github.com/WarEmu/EasyMYP
+
+
+3) Export all fixtures and zones info
+
+4) Convert all nifs to obj with FIlesConverter.exe
+Example: FIlesConverter.exe -nifToObj -in="D:\WAR Tools\Extracted\assetdb\fixtures" -out="D:\WAR Tools\Files Converter\raw obj"
+
+5)  SImplify all generated .objs with FilesConverter.exe (reduce model verts and tris)
+Example: FIlesConverter.exe -simplify -in="D:\WAR Tools\Files Converter\raw obj" -out="D:\WAR Tools\Files Converter\simplified"
+
+5.1) launch lodgen at PyMeshLab script, passing it input directory and output, it will simplify geometry and greatly reduce it size (reduce and optimize model verts and tris)
+Example: python3 lodgen.py "D:\WAR Tools\Files Converter\simplified" "D:\WAR Tools\PyMeshLab script\lods"
+
+6) Launch files converter, passing it input directory and output, with argument -serialize to rename and serialize obj to bin (convert to readable binary)
+Example: FIlesConverter.exe -serialize -in="D:\WAR Tools\PyMeshLab script\lods" -out="D:\WAR Tools\Files Converter\lod binaries"
+Example without lods: FIlesConverter.exe -serialize -in="D:\WAR Tools\Files Converter\simplified" -out="D:\WAR Tools\Files Converter\lod binaries"
+
+6.1) Launch files converter again with argument -pack to pack all .bin in one file (reduce model loading time)
+Example: FIlesConverter.exe -pack -in="D:\WAR Tools\Files Converter\lod binaries" -out="D:\WAR Tools\Files Converter"
+
+7) Launch files converter with argument -zones and pass it extracted zones folder to generate one packed .bin file (reduce zone loading time)
+Example for water: FIlesConverter.exe -water -in="D:\Repos\Krubster\WAAAAGH\bin\Debug\Zones" -out="D:\WAR Tools\Files Converter\zones"
+Example: FIlesConverter.exe -zones -in="D:\Repos\Krubster\WAAAAGH\bin\Debug\Zones" -out="D:\WAR Tools\Files Converter\zones"
+Example for simplifying: python3 terrain_lodgen.py "D:\WAR Tools\Files Converter\zones" "D:\WAR Tools\Files Converter\zones"
+Example for serializing terrain: FIlesConverter.exe -serializeTerrain -in="D:\WAR Tools\Files Converter\zones" -out="D:\WAR Tools\Files Converter\zones"
+
+DEBUG ONLY:
+Check serialized files with
+FIlesConverter.exe -reverse -out="D:\WAR Tools\Files Converter\reversed" -in="D:\WAR Tools\Files Converter\lod binaries"
+
+TODO FILTERS:
+MERGE CLOSE VERTICES (tolerance 2,51)
+REMOVE DUPLICATE VERTS
+REMOVE DUPLICATE FACES
+CLUSTERING DECIMATION(cell size 251)
+(((x0 + x1 + x2) / 3) <= 2048) && (((y0 + y1 + y2) / 3)<= 2048) && (((x0 + x1 + x2) / 3) >= 0) && (((y0 + y1 + y2) / 3) >= 0)
+(((x0 + x1 + x2) / 3) <= 2048) && (((y0 + y1 + y2) / 3) <= 4096) && (((x0 + x1 + x2) / 3) >= 0) && (((y0 + y1 + y2) / 3) >= 2048)

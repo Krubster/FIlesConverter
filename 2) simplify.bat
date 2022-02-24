@@ -1,0 +1,1 @@
+FIlesConverter.exe -simplify -in="D:\WAR Tools\Files Converter\raw obj" -out="D:\WAR Tools\Files Converter\simplified"

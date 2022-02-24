@@ -1,0 +1,1 @@
+FIlesConverter.exe -serializeTerrain -in="D:\WAR Tools\PyMeshLab script\terrain lods" -out="D:\Repos\Krubster\WAAAAGH\bin\Debug\Zones"

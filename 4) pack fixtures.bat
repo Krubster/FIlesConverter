@@ -1,0 +1,1 @@
+FIlesConverter.exe -pack -in="D:\WAR Tools\Files Converter\lod binaries" -out="D:\WAR Tools\Files Converter"

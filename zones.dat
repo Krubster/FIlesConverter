@@ -1,0 +1,3879 @@
+;Zones File - WarHammer Beta - Sigmar
+
+;-------------------
+;REGION LIST
+;-------------------
+
+;region001=Dwarf - Greenskin Tier 1 (zones 11 and 6)
+;region002=Dwarf - Greenskin Tier 4 (zones 3-5, 9-10, 26-27)
+;region003=High Elf - Dark Elf Tier 1  (zones 200 and 206)
+;region004=High Elf - Dark Elf Tier 4 (zones 203-205, 209-210 and 220)
+;region005=Test Zones (295-299) and city overflow
+;region006=T3 E-C (zones 102 and 108)
+;region007=Empire City Zones (162, 190, 198)
+;region008=Empire - Chaos Tier 1 and 2 (zones 100, 101, 106, 107) 
+;region009=Tomb Kings RvR Dungeon - Tier 4 (zone 191 and scenery zones)
+;region010=T3 G-D (zones 002 and 008)
+;region011=Empire - Chaos Tier 4 (zones 103, 104, 105, 109, 110, 117, 120)
+;region012=G-D T2
+;region014=E-C T2
+;region015=H-K T2
+;region016=H-K T3
+;region017=Chaos City Zones (161, 175, 178, 191)
+;region080=scenario Testing
+;region197=Instanced Zone Launch
+;----------------------------------------------------------
+
+;===================================
+;Dwarfs and Greenskins Tiers 1 and 2
+;===================================
+
+[region001]
+entry_music=1 
+expansion=0 
+skydome=sky_bloodhorn.dat
+
+;===================================
+;Dwarfs and Greenskins Tier 3
+;===================================
+
+[region010]
+entry_music=1 
+expansion=0 
+
+;===================================
+;Dwarfs and Greenskins Tier 4
+;===================================
+
+[region002]
+entry_music=1
+expansion=0
+
+;==============================
+; Elf Pairing Tiers 1, 2 and 3
+;==============================
+
+[region003]
+entry_music=1
+expansion=0
+
+;====================
+; Elf Pairing Tier 4
+;====================
+
+[region004]
+entry_music=1
+expansion=0
+
+;===================================
+;Empire and Chaos Tiers 1 and 2
+;===================================
+
+[region008]
+entry_music=1 
+expansion=0 
+
+;====================
+;E-C and H-K Tier 3
+;====================
+
+[region006]
+entry_music=1
+expansion=0
+
+;========================
+;Empire and Chaos Tier 4
+;========================
+
+[region011]
+entry_music=1
+expansion=0
+
+;====================
+; Testing Zones
+;====================
+
+[region005]
+entry_music=1
+expansion=0
+
+[region080]
+entry_music=1
+expansion=0
+
+
+;================
+;City PH Regions
+;================
+
+[region007]
+entry_music=1
+expansion=0
+
+[region010]
+entry_music=1
+expansion=0
+
+
+;===================
+; Tier Split Regions
+;===================
+
+[region012]
+entry_music=1
+expansion=0
+
+[region014]
+entry_music=1
+expansion=0
+
+[region015]
+entry_music=1
+expansion=0
+
+[region016]
+entry_music=1
+expansion=0
+
+[region017]
+entry_music=1
+expansion=0
+
+;==============================
+; Greenskin - Dwarf Scenarios
+;==============================
+
+
+[region030]
+entry_music=1
+expansion=0
+
+[region031]
+entry_music=1
+expansion=0
+
+[region032]
+entry_music=1
+expansion=0
+
+[region033]
+entry_music=1
+expansion=0
+
+[region034]
+entry_music=1
+expansion=0
+
+[region036]
+entry_music=1
+expansion=0
+
+[region037]
+entry_music=1
+expansion=0
+
+[region038]
+entry_music=1
+expansion=0
+
+[region039]
+entry_music=1
+expansion=0
+
+[region041]
+entry_music=1
+expansion=0
+
+[region042]
+entry_music=1
+expansion=0
+
+[region043]
+entry_music=1
+expansion=0
+
+[region044]
+entry_music=1
+expansion=0
+
+
+[region045]
+entry_music=1
+expansion=0
+
+
+[region046]
+entry_music=1
+expansion=0
+
+[region048]
+entry_music=1
+expansion=0
+
+
+;=========================
+;Instanced Control Region
+;=========================
+
+[region069]
+entry_music=1
+expansion=0
+
+;===========================================================
+;Instanced Regions -- Dwarf - Greenskin Cities and Dungeons
+;===========================================================
+
+[region060]
+entry_music=1
+expansion=0
+
+[region061]
+entry_music=1
+expansion=0
+
+[region062]
+entry_music=1
+expansion=0
+
+[region063]
+entry_music=1
+expansion=0
+
+[region064]
+entry_music=1
+expansion=0
+
+[region065]
+entry_music=1
+expansion=0
+
+[region066]
+entry_music=1
+expansion=0
+
+[region067]
+entry_music=1
+expansion=0
+
+[region068]
+entry_music=1
+expansion=0
+
+[region054]
+entry_music=1
+expansion=0
+
+;===========================================================
+;Instanced Regions -- Empire - Chaos Cities and Dungeons
+;===========================================================
+
+[region152]
+entry_music=1
+expansion=0
+
+[region153]
+entry_music=1
+expansion=0
+
+[region154]
+entry_music=1
+expansion=0
+
+[region155]
+entry_music=1
+expansion=0
+
+[region156]
+entry_music=1
+expansion=0
+
+[region160]
+entry_music=1
+expansion=0
+
+[region161]
+entry_music=1
+expansion=0
+
+[region162]
+entry_music=1
+expansion=0
+
+[region163]
+entry_music=1
+expansion=0
+
+[region164]
+entry_music=1
+expansion=0
+
+[region165]
+entry_music=1
+expansion=0
+
+[region166]
+entry_music=1
+expansion=0
+
+[region167]
+entry_music=1
+expansion=0
+
+[region168]
+entry_music=1
+expansion=0
+
+[region169]
+entry_music=1
+expansion=0
+
+[region170]
+entry_music=1
+expansion=0
+
+[region171]
+entry_music=1
+expansion=0
+
+[region172]
+entry_music=1
+expansion=0
+
+[region173]
+entry_music=1
+expansion=0
+
+[region174]
+entry_music=1
+expansion=0
+
+[region175]
+entry_music=1
+expansion=0
+
+[region176]
+entry_music=1
+expansion=0
+
+[region177]
+entry_music=1
+expansion=0
+
+[region178]
+entry_music=1
+expansion=0
+
+[region179]
+entry_music=1
+expansion=0
+
+[region190]
+entry_music=1
+expansion=0
+
+[region195]
+entry_music=1
+expansion=0
+
+[region196]
+entry_music=1
+expansion=0
+
+[region241]
+entry_music=1
+expansion=0
+
+[region242]
+entry_music=1
+expansion=0
+
+[region243]
+entry_music=1
+expansion=0
+
+[region244]
+entry_music=1
+expansion=0
+
+;==========================
+; Empire - Chaos Scenarios
+;==========================
+
+[region130]
+entry_music=1
+expansion=0
+
+[region131]
+entry_music=1
+expansion=0
+
+[region132]
+entry_music=1
+expansion=0
+
+[region133]
+entry_music=1
+expansion=0
+
+[region134]
+entry_music=1
+expansion=0
+
+[region135]
+entry_music=1
+expansion=0
+
+[region136]
+entry_music=1
+expansion=0
+
+[region137]
+entry_music=1
+expansion=0
+
+[region138]
+entry_music=1
+expansion=0
+
+[region139]
+entry_music=1
+expansion=0
+
+[region140]
+entry_music=1
+expansion=0
+
+[region141]
+entry_music=1
+expansion=0
+
+;=======================
+;HE - DE Scenarios
+;=======================
+
+[region230]
+entry_music=1
+expansion=0
+
+[region231]
+entry_music=1
+expansion=0
+
+[region232]
+entry_music=1
+expansion=0
+
+[region233]
+entry_music=1
+expansion=0
+
+[region234]
+entry_music=1
+expansion=0
+
+[region235]
+entry_music=1
+expansion=0
+
+[region236]
+entry_music=1
+expansion=0
+
+[region237]
+entry_music=1
+expansion=0
+
+[region238]
+entry_music=1
+expansion=0
+
+[region240]
+entry_music=1
+expansion=0
+
+[region260]
+entry_music=1
+expansion=0
+
+[region263]
+entry_music=1
+expansion=0
+
+[region264]
+entry_music=1
+expansion=0
+
+[region265]
+entry_music=1
+expansion=0
+
+[region266]
+entry_music=1
+expansion=0
+
+
+;================
+;Character Screen
+;================
+
+[region009]
+entry_music=1
+expansion=0
+
+
+
+;======================
+;Instanced Launch Zones
+;======================
+
+[region196]
+entry_music=1
+expansion=0
+
+[region197]
+entry_music=1
+expansion=0
+
+[region050]
+entry_music=1
+expansion=0
+
+[region051]
+entry_music=1
+expansion=0
+
+[region052]
+entry_music=1
+expansion=0
+
+[region157]
+entry_music=1
+expansion=0
+[region158]
+entry_music=1
+expansion=0
+[region159]
+entry_music=1
+expansion=0
+
+;------------------------------------------;
+; Orange            					   ;
+;------------------------------------------;
+
+[region410]
+entry_music=1
+expansion=0
+
+[region411]
+entry_music=1
+expansion=0
+
+[region412]
+entry_music=1
+expansion=0
+
+;-----------------------------------------------------------
+
+
+;-------------------
+;ZONE LIST
+;-------------------
+
+
+;=====================================
+;Dwarfs and Greenskins Terrain Zones
+;=====================================
+
+[zone001] ;Marshes of Madness
+enabled=1
+serverEnabled=1
+type=0
+region=12
+name=Marshes of Madness
+skydome=sky_marshes.dat
+entry_music=1
+map_enabled=1
+expansion=0
+tier=2
+pairing=1
+
+[zone002];Badlands
+enabled=1
+serverEnabled=1
+type=0
+region=10
+name=Badlands
+skydome=sky_badlands.dat
+entry_music=1
+map_enabled=1
+expansion=0
+tier=3
+pairing=1
+
+[zone003];Black Crag
+enabled=1
+serverEnabled=1
+type=0
+region=2
+name=Black Crag
+skydome=sky_blackcrag.dat
+entry_music=1
+map_enabled=1
+expansion=0
+tier=4
+pairing=1
+
+[zone004] ;Butcher's Pass
+enabled=1
+serverEnabled=1
+type=0
+region=2
+name=Butcher's Pass
+entry_music=1
+map_enabled=1
+expansion=0
+tier=4
+pairing=1
+
+[zone005] ;Thunder Mountain
+enabled=1
+serverEnabled=1
+type=0
+region=2
+name=Thunder Mountain
+skydome=sky_thundermount.dat
+entry_music=1
+map_enabled=1
+expansion=0
+tier=4
+pairing=1
+
+[zone006] ;Ekrund
+enabled=1
+serverEnabled=1
+type=0
+region=1
+name=Ekrund
+skydome=sky_ekrund.dat
+entry_music=1
+map_enabled=1
+expansion=0
+tier=1
+pairing=1
+
+[zone007];Barak Varr
+enabled=1
+serverEnabled=1
+type=0
+region=12
+name=Barak Varr
+skydome=sky_barak.dat
+entry_music=1
+map_enabled=1
+expansion=0
+tier=2
+pairing=1
+
+[zone008];Blackfire Pass
+enabled=1
+serverEnabled=1
+type=0
+region=10
+name=Blackfire Pass    
+skydome=sky_blackfire.dat
+entry_music=1
+temperature=35
+map_enabled=1
+expansion=0
+tier=3
+pairing=1
+
+[zone009];Kadrin Valley
+enabled=1
+serverEnabled=1
+type=0
+region=2
+name=Kadrin Valley
+skydome=sky_kadrinvalley.dat
+entry_music=1
+map_enabled=1
+expansion=0
+tier=4
+pairing=1
+
+[zone010];Stonewatch
+enabled=1
+serverEnabled=1
+region=2
+type=0
+name=Stonewatch
+entry_music=1
+map_enabled=1
+expansion=0
+tier=4
+pairing=1
+
+[zone011];Mt Bloodhorn
+enabled=1
+serverEnabled=1
+type=0
+region=1
+name=Mt Bloodhorn
+skydome=sky_bloodhorn.dat
+entry_music=1
+map_enabled=1
+expansion=0
+tier=1
+pairing=1
+
+[zone012];Bloodhorn South
+enabled=1
+type=0
+region=1
+name=Bloodhorn South
+entry_music=1
+map_enabled=1
+expansion=0
+borderZone=1
+
+[zone013];Marshes West
+enabled=1
+type=0
+region=12
+name=Marshes West
+skydome=sky_marshes.dat
+entry_music=1
+map_enabled=1
+expansion=0
+borderZone=1
+
+[zone014];Barak Varr East
+enabled=1
+type=0
+region=12
+name=Barak Varr East
+skydome=sky_barak.dat
+entry_music=1
+map_enabled=1
+expansion=0
+borderZone=1
+
+[zone015];Marshes South
+enabled=1
+type=0
+region=12
+name=Marshes South
+skydome=sky_marshes.dat
+entry_music=1
+map_enabled=1
+expansion=0
+borderZone=1
+
+[zone016];Kadrin-Blackfire Scenery
+enabled=1
+type=0
+region=2
+name=Kadrin-Blackfire Scenery
+entry_music=1
+map_enabled=1
+expansion=0
+borderZone=1
+
+[zone017];Kadrin East
+enabled=1
+type=0
+region=2
+name=Kadrin East
+entry_music=1
+map_enabled=1
+expansion=0
+borderZone=1
+
+[zone018];Karaz-a-Karak West
+enabled=1
+region=2
+type=0
+name=Karaz-a-Karak West
+entry_music=1
+map_enabled=1
+expansion=0
+borderZone=1
+
+[zone019];Karaz-a-Karak East
+enabled=1
+region=2
+type=0
+name=Karaz-a-Karak East
+entry_music=1
+map_enabled=1
+expansion=0
+borderZone=1
+
+[zone020];Eight Peaks East
+enabled=1
+type=0
+region=2
+name=Eight Peaks East
+entry_music=1
+map_enabled=1
+expansion=0
+borderZone=1
+
+[zone021];Eight Peaks West
+enabled=1
+type=0
+region=2
+name=Eight Peaks West
+entry_music=1
+map_enabled=1
+expansion=0
+borderZone=1
+
+[zone022];Blackfire West
+enabled=1
+type=0
+region=10
+name=Blackfire West  
+skydome=sky_blackfire.dat
+entry_music=1
+temperature=35
+map_enabled=1
+expansion=0
+borderZone=1
+
+[zone023];NorthWest Blackfire
+enabled=1
+type=0
+region=10
+name=NorthWest Blackfire  
+skydome=sky_blackfire.dat
+entry_music=1
+temperature=35
+map_enabled=1
+expansion=0
+borderZone=1
+
+[zone024];North Blackfire
+enabled=1
+type=0
+region=10
+name=North Blackfire  
+skydome=sky_blackfire.dat
+entry_music=1
+temperature=35
+map_enabled=1
+expansion=0
+borderZone=1
+
+[zone025];Marshes East
+enabled=1
+type=0
+region=12
+name=Marshes East
+skydome=sky_marshes.dat
+entry_music=1
+map_enabled=1
+expansion=0
+borderZone=1
+
+[zone026] ;TM West - Cinderfall
+enabled=1
+serverEnabled=1
+type=0
+region=2
+name=Cinderfall
+skydome=sky_thundermount.dat
+entry_music=1
+map_enabled=1
+expansion=0
+tier=4
+pairing=1
+
+[zone027] ;TM East - Death Peak
+enabled=1
+serverEnabled=1
+type=0
+region=2
+name=Death Peak
+skydome=sky_thundermount.dat
+entry_music=1
+map_enabled=1
+expansion=0
+tier=4
+pairing=1
+
+[zone028];Bloodhorn North
+enabled=1
+type=0
+region=1
+name=Bloodhorn North
+entry_music=1
+map_enabled=1
+expansion=0
+borderZone=1
+
+[zone070];Barak Varr North
+enabled=1
+type=0
+region=12
+name=Barak Varr North
+skydome=sky_barak.dat
+entry_music=1
+map_enabled=1
+expansion=0
+borderZone=1
+
+[zone071];Barak Varr West
+enabled=1
+type=0
+region=12
+name=Barak Varr West
+skydome=sky_barak.dat
+entry_music=1
+map_enabled=1
+expansion=0
+borderZone=1
+
+[zone072];Bloodhorn East
+enabled=1
+type=0
+region=1
+name=Bloodhorn East
+skydome=sky_bloodhorn.dat
+entry_music=1
+map_enabled=1
+expansion=0
+borderZone=1
+
+[zone073];Bloodhorn NorthEast
+enabled=1
+type=0
+region=1
+name=Bloodhorn NorthEast
+entry_music=1
+map_enabled=1
+expansion=0
+borderZone=1
+
+[zone074];Barak Varr NorthWest
+enabled=1
+type=0
+region=12
+name=Barak Varr NorthWest
+skydome=sky_barak.dat
+entry_music=1
+map_enabled=1
+expansion=0
+borderZone=1
+
+[zone075];Badlands West
+enabled=1
+type=0
+region=10
+name=Badlands West
+skydome=sky_badlands.dat
+entry_music=1
+map_enabled=1
+expansion=0
+borderZone=1
+
+[zone076];Badlands South
+enabled=1
+type=0
+region=10
+name=Badlands South
+skydome=sky_badlands.dat
+entry_music=1
+map_enabled=1
+expansion=0
+borderZone=1
+
+[zone077];Black Crag West
+enabled=1
+type=0
+region=2
+name=Black Crag West
+skydome=sky_badlands.dat
+entry_music=1
+map_enabled=1
+expansion=0
+borderZone=1
+
+[zone078];Black Crag East
+enabled=1
+type=0
+region=2
+name=Black Crag East
+skydome=sky_badlands.dat
+entry_music=1
+map_enabled=1
+expansion=0
+borderZone=1
+
+[zone079];Badlands Southwest
+enabled=1
+type=0
+region=10
+name=Badlands SouthWest
+skydome=sky_badlands.dat
+entry_music=1
+map_enabled=1
+expansion=0
+borderZone=1
+
+[zone082];Barak Varr NorthEast
+enabled=1
+type=0
+region=12
+name=Barak Varr NorthEast
+skydome=sky_barak.dat
+entry_music=1
+map_enabled=1
+expansion=0
+borderZone=1
+
+[zone083];Marshes SouthWest
+enabled=1
+type=0
+region=12
+name=Marshes SouthWest
+skydome=sky_barak.dat
+entry_music=1
+map_enabled=1
+expansion=0
+borderZone=1
+
+[zone084];Marshes SouthEast
+enabled=1
+type=0
+region=12
+name=Marshes SouthEast
+skydome=sky_barak.dat
+entry_music=1
+map_enabled=1
+expansion=0
+borderZone=1
+
+[zone085] ;Ekrund South
+enabled=1
+type=0
+region=1
+name=Ekrund South
+skydome=sky_ekrund.dat
+entry_music=1
+map_enabled=1
+expansion=0
+borderZone=1
+
+[zone086] ;Ekrund West
+enabled=1
+type=0
+region=1
+name=Ekrund West
+skydome=sky_ekrund.dat
+entry_music=1
+map_enabled=1
+expansion=0
+
+[zone087];Black Fire East
+enabled=1
+type=0
+region=10
+name=Black Fire East
+entry_music=1
+map_enabled=1
+expansion=0
+borderZone=1
+
+[zone088];Badlands East
+enabled=1
+type=0
+region=10
+name=Badlands East
+entry_music=1
+map_enabled=1
+expansion=0
+borderZone=1
+
+[zone089]; Blackfire NE
+enabled=1
+type=0
+region=10
+name=Blackfire NE
+entry_music=1
+map_enabled=1
+expansion=0
+borderZone=1
+
+[zone090]; Badlands SE
+enabled=1
+type=0
+region=10
+name=Badlands SE
+entry_music=1
+map_enabled=1
+expansion=0
+
+
+
+;=====================================
+;Dwarfs and Greenskins Scenario Zones
+;=====================================
+
+[zone030];Gates of Ekrund
+enabled=1
+serverEnabled=1
+region=30
+type=0
+name=Gates of Ekrund
+noMount=1
+skydome=sky_scenario30.dat
+entry_music=1
+map_enabled=1
+expansion=0
+tier=1
+pairing=1
+
+[zone031];Mourkain Temple
+enabled=1
+serverEnabled=1
+region=31
+type=0
+name=Mourkain Temple
+skydome=sky_marshes.dat
+entry_music=1
+map_enabled=1
+expansion=0
+tier=2
+pairing=1
+
+
+
+[zone032];Blockade
+enabled=1
+serverEnabled=1
+
+override_time=43200
+noMount=1
+region=32
+type=0
+name=Blockade
+skydome=sky_marshes.dat
+entry_music=1
+map_enabled=1
+expansion=0
+tier=2
+pairing=1
+
+
+[zone033];Doomfist Crater
+enabled=1
+serverEnabled=1
+region=33
+type=0
+name=Doomfist Crater
+entry_music=1
+map_enabled=1
+expansion=0
+tier=3
+pairing=1
+
+
+[zone034];Thunder Valley Scenario
+enabled=1
+serverEnabled=1
+region=34
+type=0
+name=Thunder Valley
+entry_music=1
+map_enabled=1
+expansion=0
+tier=4
+pairing=1
+
+
+[zone036]; Kadrin Valley Pass
+enabled=1
+serverEnabled=1
+region=36
+type=0
+name=Kadrin Valley Pass
+entry_music=1
+map_enabled=1
+expansion=0
+tier=4
+pairing=1
+
+[zone037];Black Crag Keep
+enabled=1
+serverEnabled=1
+region=37
+type=0
+name=Black Crag Keep
+entry_music=1
+map_enabled=1
+expansion=0
+tier=4
+pairing=1
+
+[zone038]; Blackfire Basin
+enabled=1
+serverEnabled=1
+region=38
+type=0
+name=Blackfire Basin
+entry_music=1
+map_enabled=1
+expansion=0
+tier=3
+pairing=1
+
+[zone039]; Logrin Quarry T4GS Scenario
+enabled=1
+serverEnabled=1
+region=39
+type=0
+name=Logrin Quarry
+zoneInside=1
+noMount=1
+entry_music=1
+map_enabled=1
+expansion=0
+tier=4
+pairing=1
+
+
+[zone043]; Gromril Crossing
+enabled=1
+serverEnabled=1
+region=43
+type=0
+name=Gromril Crossing
+entry_music=1
+map_enabled=1
+expansion=0
+tier=4
+pairing=1
+
+[zone044]; Howling Gorge Scenario
+enabled=1
+serverEnabled=1
+region=44
+type=0
+name=Howling Gorge
+entry_music=1
+map_enabled=1
+expansion=0
+tier=4
+pairing=1
+
+;
+
+[zone045]; Gates of Ekrund T2
+
+enabled=1
+
+serverEnabled=1
+
+region=45
+
+override_time=3600
+
+type=0
+
+name=Gates of Ekrund T2
+
+entry_music=1
+
+map_enabled=1
+
+expansion=0
+
+tier=4
+
+pairing=1
+
+
+
+;=========================================
+; Dungeons and Cities - Dwarf / Greenskin
+;=========================================
+
+[zone060];Mount Gunbad Realm 1
+enabled=1
+serverEnabled=1
+region=60
+type=0
+name=Mount Gunbad
+override_time=43200
+entry_music=1
+map_enabled=1
+expansion=0
+zoneInside=1
+noMount=1
+tier=3
+pairing=1
+
+[zone061] ;Karak Eight Peaks
+enabled=0
+type=0
+region=7
+name=Karak Eight Peaks
+entry_music=1
+map_enabled=1
+expansion=0
+tier=4
+pairing=1
+
+[zone062];Karaz-a-Karak City Zone
+enabled=0
+region=7
+type=0
+name=Karaz-a-Karak
+entry_music=1
+map_enabled=1
+expansion=0
+tier=4
+pairing=1
+
+[zone067] ;Karak Eight Peaks - Contested
+enabled=0
+type=0
+region=7
+name=Karak Eight Peaks
+entry_music=1
+map_enabled=1
+expansion=0
+tier=4
+pairing=1
+
+[zone068];Karaz a Karak City Zone - Contested
+enabled=0
+region=7
+type=0
+name=Karaz-a-Karak
+entry_music=1
+map_enabled=1
+expansion=0
+tier=4
+pairing=1
+
+[zone063];Gunbad Nursery
+enabled=1
+serverEnabled=1
+region=63
+type=0
+name=Gunbad Nursery
+override_time=43200
+entry_music=1
+map_enabled=1
+expansion=0
+zoneInside=1
+noMount=1
+tier=3
+pairing=1
+
+[zone064];Gunbad Lab
+enabled=1
+serverEnabled=1
+region=64
+type=0
+name=Gunbad Lab
+override_time=43200
+entry_music=1
+map_enabled=1
+expansion=0
+zoneInside=1
+noMount=1
+tier=3
+pairing=1
+
+[zone065];Squig Boss
+enabled=1
+serverEnabled=1
+region=65
+type=0
+name=Gunbad Squig Boss
+override_time=43200
+entry_music=1
+map_enabled=1
+expansion=0
+zoneInside=1
+noMount=1
+tier=3
+pairing=1
+
+[zone066];Gunbad Barracks
+enabled=1
+serverEnabled=1
+region=66
+type=0
+name=Gunbad Barracks
+override_time=43200
+entry_music=1
+map_enabled=1
+expansion=0
+zoneInside=1
+noMount=1
+tier=3
+pairing=1
+
+[zone069];Instanced Launch
+enabled=0
+region=197
+type=0
+name=Mount Gunbad
+override_time=43200
+entry_music=1
+map_enabled=1
+expansion=0
+
+
+;==================
+;Instanced Zones
+;==================
+
+;=====================================
+;Empire and Chaos Terrain Zones
+;=====================================
+
+[zone100];Norsca
+enabled=1
+serverEnabled=1
+region=008
+type=0
+name=Norsca
+skydome=sky_norsca.dat
+entry_music=1
+map_enabled=1
+expansion=0
+tier=1
+pairing=2
+
+[zone101];Troll Country
+enabled=1
+serverEnabled=1
+region=14
+type=0
+name=Troll Country
+skydome=sky_trollcountry.dat
+entry_music=1
+map_enabled=1
+expansion=0
+tier=2
+pairing=2
+
+[zone102];High Pass
+enabled=1
+serverEnabled=1
+region=6
+type=0
+name=High Pass
+skydome=sky_highpass.dat
+entry_music=1
+map_enabled=1
+expansion=0
+tier=3
+pairing=2
+
+[zone103];Chaos Wastes
+enabled=1
+serverEnabled=1
+region=011
+type=0
+name=Chaos Wastes
+entry_music=1
+map_enabled=1
+expansion=0
+tier=4
+pairing=2
+
+[zone104];The Maw
+enabled=1
+serverEnabled=1
+region=011
+type=0
+name=The Maw
+entry_music=1
+map_enabled=1
+expansion=0
+tier=4
+pairing=2
+
+[zone105];Praag
+enabled=1
+serverEnabled=1
+region=011
+type=0
+name=Praag
+entry_music=1
+map_enabled=1
+expansion=0
+tier=4
+pairing=2
+
+[zone106];Barony of Nordland
+enabled=1
+serverEnabled=1
+region=008
+type=0
+name=Barony of Nordland
+skydome=sky_nordland.dat
+entry_music=1
+map_enabled=1
+expansion=0
+tier=1
+pairing=2
+
+[zone107];Ostland
+enabled=1
+serverEnabled=1
+region=14
+type=0
+name=Ostland
+skydome=sky_ostland.dat
+entry_music=1
+map_enabled=1
+expansion=0
+tier=2
+pairing=2
+
+[zone108];Talabecland
+enabled=1
+serverEnabled=1
+region=6
+type=0
+name=Talabecland
+skydome=sky_Talabecland.dat
+entry_music=1
+map_enabled=1
+expansion=0
+tier=3
+pairing=2
+
+[zone109];Reikland
+enabled=1
+serverEnabled=1
+region=011
+type=0
+name=Reikland
+entry_music=1
+map_enabled=1
+expansion=0
+tier=4
+pairing=2
+
+[zone110];Reikwald
+enabled=1
+serverEnabled=1
+region=011
+type=0
+name=Reikwald
+entry_music=1
+map_enabled=1
+expansion=0
+tier=4
+pairing=2
+
+[zone111];Troll Country West
+enabled=1
+region=14
+type=0
+name=Troll Country West
+entry_music=1
+map_enabled=1
+expansion=0
+borderZone=1
+
+[zone112];Troll Country East
+enabled=1
+region=14
+type=0
+name=Troll Country
+entry_music=1
+map_enabled=1
+expansion=0
+borderZone=1
+
+[zone113];Troll Country North
+enabled=1
+region=14
+type=0
+name=Troll Country North
+entry_music=1
+map_enabled=1
+expansion=0
+borderZone=1
+
+[zone114];Troll Country Northeast
+enabled=1
+region=14
+type=0
+name=Troll Country Northeast
+entry_music=1
+map_enabled=1
+expansion=0
+
+[zone115];Troll Country Northwest
+enabled=1
+region=14
+type=0
+name=Troll Country Northwest
+entry_music=1
+map_enabled=1
+expansion=0
+borderZone=1
+
+[zone116];High Pass East
+enabled=1
+region=6
+type=0
+name=High Pass East
+entry_music=1
+map_enabled=1
+expansion=0
+borderZone=1
+
+[zone117];Chaos Wastes East - Outer Dark
+enabled=1
+region=011
+type=0
+name=Outer Dark
+zoneInside=1
+noMount=1
+entry_music=1
+map_enabled=1
+expansion=0
+override_time=43200
+tier=4
+pairing=2
+borderZone=1
+
+[zone118];Chaos Wastes West
+enabled=1
+region=011
+type=0
+name=Chaos Wastes West
+entry_music=1
+map_enabled=1
+expansion=0
+
+[zone120];West Praag
+enabled=1
+serverEnabled=1
+region=011
+type=0
+name=West Praag
+entry_music=1
+map_enabled=1
+expansion=0
+tier=4
+pairing=2
+
+[zone121];West High Pass
+enabled=1
+region=6
+type=0
+name=West High Pass
+entry_music=1
+map_enabled=1
+expansion=0
+borderZone=1
+
+[zone122];Northwest High Pass
+enabled=1
+region=6
+type=0
+name=Northwest High Pass
+entry_music=1
+map_enabled=1
+expansion=0
+
+[zone123];North High Pass
+enabled=1
+region=6
+type=0
+name=North High Pass
+entry_music=1
+map_enabled=1
+expansion=0
+borderZone=1
+
+[zone124];Northeast High Pass
+enabled=1
+region=6
+type=0
+name=Northeast High Pass
+entry_music=1
+map_enabled=1
+expansion=0
+
+[zone125];East Norsca
+enabled=1
+region=6
+type=0
+name=East Norsca
+entry_music=1
+map_enabled=1
+expansion=0
+borderZone=1
+
+[zone126]; Talabec East
+enabled=1
+region=6
+type=0
+name=Talabec East
+skydome=sky_Talabecland
+entry_music=1
+map_enabled=1
+expansion=0
+borderZone=1
+
+[zone127];East Praag Scenery
+enabled=1
+region=011
+type=0
+name=East Praag
+entry_music=1
+map_enabled=1
+expansion=0
+borderZone=1
+
+[zone128];East Nordland
+enabled=1
+region=008
+type=0
+name=East Nordland
+entry_music=1
+map_enabled=1
+expansion=0
+borderZone=1
+
+[zone129];South Nordland
+enabled=1
+region=008
+type=0
+name=South Nordland
+entry_music=1
+map_enabled=1
+expansion=0
+borderZone=1
+
+[zone142];Reikland West
+enabled=1
+region=011
+type=0
+name=Reikland West
+entry_music=1
+map_enabled=1
+expansion=0
+tier=4
+pairing=2
+borderZone=1
+
+[zone143];Reikland East
+enabled=1
+region=011
+type=0
+name=Reikland East
+entry_music=1
+map_enabled=1
+expansion=0
+tier=4
+pairing=2
+borderZone=1
+
+[zone144];West Reikwald
+enabled=1
+serverEnabled=1
+region=011
+type=0
+name=West Reikwald
+entry_music=1
+map_enabled=1
+expansion=0
+tier=4
+pairing=2
+
+[zone145];East Reikwald
+enabled=1
+serverEnabled=1
+region=011
+type=0
+name=East Reikwald
+entry_music=1
+map_enabled=1
+expansion=0
+tier=4
+pairing=2
+
+[zone146];West Maw
+enabled=1
+serverEnabled=1
+region=011
+type=0
+name=West Maw
+entry_music=1
+map_enabled=1
+expansion=0
+tier=4
+pairing=2
+
+[zone147];East Maw
+enabled=1
+serverEnabled=1
+region=011
+type=0
+name=East Maw
+entry_music=1
+map_enabled=1
+expansion=0
+tier=4
+pairing=2
+borderZone=1
+
+[zone180];Norsca Ocean 
+enabled=1
+region=008
+type=0
+name=Norsca Ocean
+entry_music=1
+map_enabled=1
+expansion=0
+borderZone=1
+
+[zone181];Nordland Ocean
+enabled=1
+region=008
+type=0
+name=Nordland Ocean
+entry_music=1
+map_enabled=1
+expansion=0
+borderZone=1
+
+[zone182];Talabecland West
+enabled=1
+region=6
+type=0
+name=Talabecland West
+skydome=sky_Talabecland
+entry_music=1
+map_enabled=1
+expansion=0
+tier=3
+pairing=2
+borderZone=1
+
+[zone183];Talabecland SouthWest
+enabled=1
+region=6
+type=0
+name=Talabecland SouthWest
+skydome=sky_Talabecland
+entry_music=1
+map_enabled=1
+expansion=0
+tier=3
+pairing=2
+
+[zone184];Talabecland South
+enabled=1
+region=6
+type=0
+name=Talabecland South
+skydome=sky_Talabecland
+entry_music=1
+map_enabled=1
+expansion=0
+tier=3
+pairing=2
+borderZone=1
+
+[zone185];Talabecland SouthEast
+enabled=1
+region=6
+type=0
+name=Talabecland SouthEast
+skydome=sky_Talabecland
+entry_music=1
+map_enabled=1
+expansion=0
+tier=3
+pairing=2
+
+[zone186];Far West Praag
+enabled=1
+region=011
+type=0
+name=Far West Praag
+entry_music=1
+map_enabled=1
+expansion=0
+tier=4
+pairing=2
+
+[zone187];Far Southwest Praag
+enabled=1
+region=011
+type=0
+name=West Praag
+entry_music=1
+map_enabled=1
+expansion=0
+tier=4
+pairing=2
+
+[zone188];Far Northwest Praag
+enabled=1
+region=011
+type=0
+name=West Praag
+entry_music=1
+map_enabled=1
+expansion=0
+tier=4
+pairing=2
+
+[zone192];Ostland West
+enabled=1
+region=14
+type=0
+name=Ostland West
+skydome=sky_ostland.dat
+entry_music=1
+map_enabled=1
+expansion=0
+tier=2
+pairing=2
+borderZone=1
+
+[zone193];Ostland East
+enabled=1
+region=14
+type=0
+name=Ostland East
+skydome=sky_ostland.dat
+entry_music=1
+map_enabled=1
+expansion=0
+tier=2
+pairing=2
+borderZone=1
+
+[zone194];Ostland South
+enabled=1
+region=14
+type=0
+name=Ostland South
+skydome=sky_ostland.dat
+entry_music=1
+map_enabled=1
+expansion=0
+tier=2
+pairing=2
+borderZone=1
+
+[zone150];Ostland SW
+enabled=1
+region=14
+type=0
+name=Ostland SW
+skydome=sky_ostland.dat
+entry_music=1
+map_enabled=1
+expansion=0
+tier=2
+pairing=2
+
+[zone151];Ostland SE
+enabled=1
+region=14
+type=0
+name=Ostland SE
+skydome=sky_ostland.dat
+entry_music=1
+map_enabled=1
+expansion=0
+tier=2
+pairing=2
+
+
+;=========================================
+; Dungeons and Cities - Empire / Chaos
+;=========================================
+
+[zone152]; Sewers 2
+enabled=1
+serverEnabled=1
+region=152
+type=0
+name=Sewers 2
+entry_music=1
+map_enabled=1
+expansion=0
+zoneInside=1
+noMount=1
+tier=4
+pairing=2
+
+[zone153]; Sewers 3
+enabled=1
+serverEnabled=1
+region=153
+type=0
+name=Sewers 3
+entry_music=1
+map_enabled=1
+expansion=0
+zoneInside=1
+noMount=1
+tier=4
+pairing=2
+
+[zone154]; Warpblade 2
+enabled=1
+serverEnabled=1
+region=154
+type=0
+name=Warpblade 2
+entry_music=1
+map_enabled=1
+expansion=0
+zoneInside=1
+noMount=1
+tier=4
+pairing=2
+
+[zone155]; Sacellum 2
+enabled=1
+serverEnabled=1
+distantterrainenabled=0
+region=155
+type=0
+name=Sacellum 2
+entry_music=1
+map_enabled=1
+expansion=0
+zoneInside=1
+noMount=1
+tier=4
+pairing=2
+
+[zone156]; Sacellum 3
+enabled=1
+serverEnabled=1
+distantterrainenabled=0
+region=156
+type=0
+name=Sacellum 3
+entry_music=1
+map_enabled=1
+expansion=0
+zoneInside=1
+noMount=1
+tier=4
+pairing=2
+
+
+[zone160];Bastion Stair
+enabled=1
+serverEnabled=1
+region=160
+type=0
+name=Bastion Stair
+override_time=57600
+entry_music=1
+map_enabled=1
+expansion=0
+zoneInside=1
+noMount=1
+tier=3
+pairing=2
+
+[zone161]; Inevitable City
+enabled=1
+serverEnabled=1
+region=17
+type=0
+distantterrainenabled=0
+name=Inevitable City
+entry_music=1
+map_enabled=1
+expansion=0
+tier=4
+pairing=2
+skydome=sky_inevitable.dat
+
+[zone162]; Altdorf
+enabled=1
+serverEnabled=1
+region=7
+type=0
+name=Altdorf
+entry_music=1
+map_enabled=1
+expansion=0
+tier=4
+pairing=2
+
+[zone163];Bastion Stair - Thar'Ignan
+enabled=1
+serverEnabled=1
+region=163
+type=0
+name=Thar'Ignan
+override_time=57600
+entry_music=1
+map_enabled=1
+expansion=0
+zoneInside=1
+noMount=1
+tier=3
+pairing=2
+
+[zone164];Bastion Stair - Lord Slaurith
+enabled=1
+serverEnabled=1
+region=164
+type=0
+name=Lord Slaurith
+override_time=57600
+entry_music=1
+map_enabled=1
+expansion=0
+zoneInside=1
+noMount=1
+tier=3
+pairing=2
+
+[zone165];Bastion Stair - Kaarn the Vanquisher
+enabled=1
+serverEnabled=1
+region=165
+type=0
+name=Kaarn
+override_time=57600
+entry_music=1
+map_enabled=1
+expansion=0
+zoneInside=1
+noMount=1
+tier=3
+pairing=2
+
+[zone166];Bastion Stair - Skull Lord Var'Ithrok
+enabled=1
+serverEnabled=1
+region=166
+type=0
+name=Rift of Rage
+override_time=57600
+entry_music=1
+map_enabled=1
+expansion=0
+zoneInside=1
+noMount=1
+tier=3
+pairing=2
+
+[zone167]; Inevitable City Contested
+enabled=1
+serverEnabled=1
+region=167
+type=0
+distantterrainenabled=0
+name=Inevitable City
+entry_music=1
+map_enabled=1
+expansion=0
+tier=4
+pairing=2
+skydome=sky_inevitable.dat
+
+[zone168]; Altdorf Contested
+enabled=1
+serverEnabled=1
+region=168
+type=0
+name=Altdorf
+override_time=43200
+entry_music=1
+map_enabled=1
+expansion=0
+tier=4
+pairing=2
+
+[zone169]; Sewers
+enabled=1
+serverEnabled=1
+region=169
+type=0
+name=Sewers
+entry_music=1
+map_enabled=1
+expansion=0
+zoneInside=1
+noMount=1
+tier=4
+pairing=2
+
+[zone170]; Altdorf Palace
+enabled=1
+serverEnabled=1
+region=170
+type=0
+name=Altdorf Palace
+entry_music=1
+map_enabled=1
+expansion=0
+zoneInside=1
+noMount=1
+tier=4
+pairing=2
+
+[zone171]; The Screaming Cat
+enabled=1
+serverEnabled=1
+region=171
+type=0
+name=The Screaming Cat
+entry_music=1
+map_enabled=1
+expansion=0
+zoneInside=1
+noMount=1
+tier=4
+pairing=2
+
+[zone172]; The Eternal Citadel
+enabled=1
+serverEnabled=1
+distantterrainenabled=0
+region=172
+type=0
+name=The Eternal Citadel
+entry_music=1
+map_enabled=1
+expansion=0
+zoneInside=1
+noMount=1
+tier=4
+pairing=2
+
+[zone173]; Sacellum
+enabled=1
+serverEnabled=1
+region=173
+type=0
+distantterrainenabled=0
+name=Sacellum
+entry_music=1
+map_enabled=1
+expansion=0
+zoneInside=1
+noMount=1
+tier=4
+pairing=2
+
+[zone174];The Elysium
+enabled=1
+region=174
+serverEnabled=1
+type=0
+name=The Elysium
+entry_music=1
+map_enabled=1
+expansion=0
+zoneInside=1
+noMount=1
+tier=4
+pairing=2
+
+[zone175];Winds of Chaos
+enabled=1
+serverEnabled=1
+region=17
+type=0
+override_time=1
+name=Winds of Chaos
+noMount=1
+entry_music=1
+map_enabled=1
+expansion=0
+tier=4
+pairing=2
+
+[zone176];Temple Crypts
+enabled=1
+serverEnabled=1
+region=176
+type=0
+name=Temple Crypts
+entry_music=1
+map_enabled=1
+expansion=0
+zoneInside=1
+noMount=1
+tier=4
+pairing=2
+
+[zone177];Skaven Tunnels
+enabled=1
+serverEnabled=1
+region=177
+type=0
+name=Skaven Tunnels
+override_time=79200
+entry_music=1
+map_enabled=1
+expansion=0
+zoneInside=1
+noMount=1
+tier=4
+pairing=2
+
+[zone178];The Viper Pit
+enabled=1
+serverEnabled=1
+region=17
+type=0
+name=The Viper Pit
+entry_music=1
+map_enabled=1
+expansion=0
+zoneInside=1
+noMount=1
+tier=4
+pairing=2
+
+[zone190];Wizard College
+enabled=1
+serverEnabled=1
+region=7
+type=0
+name=Wizard College
+entry_music=1
+map_enabled=1
+expansion=0
+zoneInside=1
+noMount=1
+tier=4
+pairing=2
+
+[zone195];Bloodwrought Enclave
+enabled=1
+serverEnabled=1
+override_time=2400
+region=195
+type=0
+name=Chaos Dungeon 1
+entry_music=1
+map_enabled=1
+expansion=0
+zoneInside=1
+noMount=1
+tier=3
+pairing=2
+
+[zone196];Bilerot Burrow
+enabled=1
+serverEnabled=1
+override_time=2400
+region=196
+type=0
+name=Chaos Dungeon 2
+entry_music=1
+map_enabled=1
+expansion=0
+zoneInside=1
+noMount=1
+tier=3
+pairing=2
+
+[zone198];Sigmar's Hammer
+enabled=1
+serverEnabled=1
+region=7
+type=0
+name=Sigmar's Hammer
+entry_music=1
+map_enabled=1
+expansion=0
+zoneInside=1
+noMount=1
+tier=3
+pairing=2
+
+[zone041];Altdorf War Quarters
+enabled=1
+serverEnabled=1
+region=41
+type=0
+name=Altdorf War Quarters
+noMount=1
+entry_music=1
+map_enabled=1
+expansion=0
+tier=3
+pairing=2
+
+[zone042];The Undercroft
+enabled=1
+serverEnabled=1
+distantterrainenabled=0
+region=42
+type=0
+name=The Undercroft
+noMount=1
+entry_music=1
+map_enabled=1
+expansion=0
+tier=3
+pairing=2
+
+
+[zone157];Bright Wizard College
+
+enabled=1
+
+serverEnabled=1
+
+region=157
+
+type=0
+
+name=Bright Wizard College
+
+entry_music=1
+map_enabled=1
+expansion=0
+zoneInside=1
+noMount=1
+tier=4
+pairing=2
+
+[zone158];Sigmar Temple
+
+
+enabled=1
+
+serverEnabled=1
+
+region=158
+
+type=0
+
+name=Sigmar Temple
+
+entry_music=1
+map_enabled=1
+expansion=0
+zoneInside=1
+noMount=1
+tier=4
+pairing=2
+
+[zone159];The Monolith
+
+enabled=1
+
+serverEnabled=1
+
+region=159
+type=0
+
+name=The Monolith
+entry_music=1
+map_enabled=1
+expansion=0
+zoneInside=1
+noMount=1
+tier=4
+pairing=2
+
+[zone197];Sacellum
+enabled=1
+serverEnabled=1
+region=197
+type=0
+name=Sacellum
+entry_music=1
+map_enabled=1
+expansion=0
+zoneInside=1
+noMount=1
+tier=4
+pairing=2
+
+;=====================================
+;Chaos and Empire Scenario Zones
+;=====================================
+
+[zone130];Nordenwatch
+enabled=1
+serverEnabled=1
+region=130
+type=0
+name=Nordenwatch
+entry_music=1
+map_enabled=1
+expansion=0
+tier=1
+pairing=2
+
+[zone131]; Stone Troll Crossing
+enabled=1
+serverEnabled=1
+region=131
+type=0
+name=Stone Troll Crossing
+entry_music=1
+map_enabled=1
+expansion=0
+tier=2
+pairing=2
+
+[zone132]; Talabec Dam
+enabled=1
+serverEnabled=1
+region=132
+type=0
+name=Talabec Dam
+entry_music=1
+map_enabled=1
+expansion=0
+tier=3
+pairing=2
+
+[zone133]; Maw of Madness
+enabled=1
+serverEnabled=1
+region=133
+type=0
+name=Maw of Madness
+entry_music=1
+map_enabled=1
+expansion=0
+tier=3
+pairing=2
+
+[zone134]; Reikland Hills
+enabled=1
+serverEnabled=1
+region=134
+type=0
+name=Reikland Hills
+entry_music=1
+map_enabled=1
+expansion=0
+tier=3
+pairing=2
+
+[zone135]; Twisting Tower
+enabled=1
+serverEnabled=1
+distantterrainenabled=0
+region=135
+type=0
+name=Twisting Tower
+entry_music=1
+map_enabled=1
+expansion=0
+tier=4
+pairing=2
+
+[zone136]; Battle for Praag
+enabled=1
+serverEnabled=1
+region=136
+type=0
+name=Battle for Praag
+entry_music=1
+map_enabled=1
+expansion=0
+tier=4
+pairing=2
+
+[zone137]; Grovod Caverns
+enabled=1
+serverEnabled=1
+region=137
+type=0
+name=Grovod Caverns
+entry_music=1
+map_enabled=1
+expansion=0
+zoneInside=1
+noMount=1
+tier=4
+pairing=2
+
+[zone138]; Castle Reikland
+enabled=1
+serverEnabled=1
+region=138
+type=0
+name=Castle Reikland
+entry_music=1
+map_enabled=1
+expansion=0
+tier=4
+pairing=2
+
+[zone139]; High Pass Cemetery
+enabled=1
+serverEnabled=1
+region=139
+type=0
+name=High Pass Cemetery
+entry_music=1
+map_enabled=1
+expansion=0
+tier=3
+pairing=2
+
+
+
+;=======================================
+;High Elves and Dark Elves Terrain Zones
+;=======================================
+
+[zone200];The Blighted Isle
+enabled=1
+serverEnabled=1
+region=3
+type=0
+name=The Blighted Isle
+entry_music=1
+map_enabled=1
+expansion=0
+tier=1
+pairing=3
+
+[zone201];Shadowlands
+enabled=1
+serverEnabled=1
+region=15
+type=0
+name=Shadowlands
+entry_music=1
+map_enabled=1
+expansion=0
+tier=2
+pairing=3
+
+[zone202];Avelorn
+enabled=1
+serverEnabled=1
+region=16
+type=0
+name=Avelorn
+entry_music=1
+map_enabled=1
+expansion=0
+tier=3
+pairing=3
+
+[zone203];Caledor
+enabled=1
+serverEnabled=1
+region=4
+type=0
+name=Caledor
+entry_music=1
+map_enabled=1
+expansion=0
+tier=4
+pairing=3
+
+[zone204];Fell Landing
+enabled=1
+serverEnabled=1
+region=4
+type=0
+name=Fell Landing
+entry_music=1
+map_enabled=1
+expansion=0
+tier=4
+pairing=3
+
+[zone205];Dragonwake
+enabled=1
+serverEnabled=1
+region=4
+type=0
+name=Dragonwake
+entry_music=1
+map_enabled=1
+expansion=0
+tier=4
+pairing=3
+
+[zone206];Chrace
+enabled=1
+serverEnabled=1
+region=3
+type=0
+name=Chrace
+entry_music=1
+map_enabled=1
+expansion=0
+tier=1
+pairing=3
+
+[zone207];Ellyrion
+enabled=1
+serverEnabled=1
+region=15
+type=0
+name=Ellyrion
+entry_music=1
+map_enabled=1
+expansion=0
+tier=2
+pairing=3
+
+[zone208];Saphery
+enabled=1
+serverEnabled=1
+region=16
+type=0
+name=Saphery
+entry_music=1
+map_enabled=1
+expansion=0
+tier=3
+pairing=3
+
+[zone209];Eataine
+enabled=1
+serverEnabled=1
+region=4
+type=0
+name=Eataine
+entry_music=1
+map_enabled=1
+expansion=0
+tier=4
+pairing=3
+
+[zone210];Shining Way
+enabled=1
+serverEnabled=1
+region=4
+type=0
+name=Shining Way
+entry_music=1
+map_enabled=1
+expansion=0
+tier=4
+pairing=3
+
+[zone211];West Blighted Isle
+enabled=1
+region=3
+type=0
+name=West Blighted Isle
+entry_music=1
+map_enabled=1
+expansion=0
+tier=1
+pairing=3
+borderZone=1
+
+[zone212];Northwest Blighted Isle
+enabled=1
+region=3
+type=0
+name=Northwest Blighted Isle
+entry_music=1
+map_enabled=1
+expansion=0
+tier=1
+pairing=3
+borderZone=1
+
+[zone213];The Great Ocean
+enabled=1
+region=3
+type=0
+name=The Great Ocean
+entry_music=1
+map_enabled=1
+expansion=0
+tier=1
+pairing=3
+borderZone=1
+
+[zone214];Northeast Blighted Isle
+enabled=1
+region=3
+type=0
+name=Northeast Blighted Isle
+entry_music=1
+map_enabled=1
+expansion=0
+tier=1
+pairing=3
+borderZone=1
+
+[zone215];East Blighted Isle
+enabled=1
+region=3
+type=0
+name=East Blighted Isle
+entry_music=1
+map_enabled=1
+expansion=0
+tier=1
+pairing=3
+borderZone=1
+
+[zone216];West Chrace
+enabled=1
+region=3
+type=0
+name=West Chrace
+entry_music=1
+map_enabled=1
+expansion=0
+tier=1
+pairing=3
+borderZone=1
+
+[zone217];East Chrace
+enabled=1
+region=3
+type=0
+name=East Chrace
+entry_music=1
+map_enabled=1
+expansion=0
+tier=1
+pairing=3
+borderZone=1
+
+[zone218];North Caledor
+enabled=1
+region=4
+type=0
+name=Caledor
+entry_music=1
+map_enabled=1
+expansion=0
+tier=4
+pairing=3
+borderZone=1
+
+[zone219];South Caledor
+enabled=1
+region=4
+type=0
+name=Caledor
+entry_music=1
+map_enabled=1
+expansion=0
+tier=4
+pairing=3
+borderZone=1
+
+[zone220];Isle of the Dead
+enabled=1
+serverEnabled=1
+region=4
+type=0
+name=Isle of the Dead
+entry_music=1
+map_enabled=1
+expansion=0
+tier=1
+pairing=3
+
+[zone221];Shadowlands North
+enabled=1
+region=15
+type=0
+name=Shadowlands North
+entry_music=1
+map_enabled=1
+expansion=0
+tier=2
+pairing=3
+borderZone=1
+
+[zone222];West Avelorn
+enabled=1
+region=16
+type=0
+name=West Avelorn
+entry_music=1
+map_enabled=1
+expansion=0
+tier=3
+pairing=3
+borderZone=1
+
+[zone223];East Avelorn
+enabled=1
+region=16
+type=0
+name=East Avelorn
+entry_music=1
+map_enabled=1
+expansion=0
+tier=3
+pairing=3
+borderZone=1
+
+[zone224];North Avelorn
+enabled=1
+region=16
+type=0
+name=North Avelorn
+entry_music=1
+map_enabled=1
+expansion=0
+tier=3
+pairing=3
+borderZone=1
+
+[zone225];Shadowlands NorthEast
+enabled=1
+region=15
+type=0
+name=Shadowlands NorthEast
+entry_music=1
+map_enabled=1
+expansion=0
+tier=2
+pairing=3
+borderZone=1
+
+[zone226];Shadowlands NorthWest
+enabled=1
+region=15
+type=0
+name=Shadowlands NorthWest
+entry_music=1
+map_enabled=1
+expansion=0
+tier=2
+pairing=3
+borderZone=1
+
+[zone227];Shadowlands East
+enabled=1
+region=15
+type=0
+name=Shadowlands East
+entry_music=1
+map_enabled=1
+expansion=0
+tier=2
+pairing=3
+borderZone=1
+
+[zone228];Shadowlands West
+enabled=1
+region=15
+type=0
+name=Shadowlands West
+entry_music=1
+map_enabled=1
+expansion=0
+tier=2
+pairing=3
+borderZone=1
+
+[zone229];South Chrace
+enabled=1
+region=3
+type=0
+name=South Chrace
+entry_music=1
+map_enabled=1
+expansion=0
+tier=1
+pairing=3
+borderZone=1
+
+[zone245];West Sea
+enabled=1
+serverEnabled=1
+region=4
+type=0
+name=West Sea
+entry_music=1
+map_enabled=1
+expansion=0
+tier=1
+pairing=3
+borderZone=1
+
+[zone246];Northwest Sea
+enabled=1
+serverEnabled=1
+region=4
+type=0
+name=Northwest Sea
+entry_music=1
+map_enabled=1
+expansion=0
+tier=1
+pairing=3
+borderZone=1
+
+[zone247];North Sea
+enabled=1
+region=4
+type=0
+name=North Sea
+entry_music=1
+map_enabled=1
+expansion=0
+tier=1
+pairing=3
+borderZone=1
+
+[zone248];Northeast Sea
+enabled=1
+region=4
+type=0
+name=Northeast Sea
+entry_music=1
+map_enabled=1
+expansion=0
+tier=1
+pairing=3
+borderZone=1
+
+[zone249];East Sea
+enabled=1
+region=4
+type=0
+name=East Sea
+entry_music=1
+map_enabled=1
+expansion=0
+tier=1
+pairing=3
+borderZone=1
+
+
+[zone275];North Fell Landing
+enabled=1
+region=4
+type=0
+name=North Fell Landing
+entry_music=1
+map_enabled=1
+expansion=0
+tier=4
+pairing=3
+borderZone=1
+
+[zone276];South Fell Landing
+enabled=1
+region=4
+type=0
+name=South Fell Landing
+entry_music=1
+map_enabled=1
+expansion=0
+tier=4
+pairing=3
+borderZone=1
+
+[zone277];North Shining Way
+enabled=1
+region=4
+type=0
+name=North Shining Way
+entry_music=1
+map_enabled=1
+expansion=0
+tier=4
+pairing=3
+borderZone=1
+
+[zone278];South Shining Way
+enabled=1
+region=4
+type=0
+name=South Shining Way
+entry_music=1
+map_enabled=1
+expansion=0
+tier=4
+pairing=3
+borderZone=1
+
+[zone279];South Dragonwake
+enabled=1
+region=4
+type=0
+name=South Dragonwake
+entry_music=1
+map_enabled=1
+expansion=0
+tier=4
+pairing=3
+borderZone=1
+
+[zone280];West Ellyrion
+enabled=1
+region=15
+type=0
+name=West Ellyrion
+entry_music=1
+map_enabled=1
+expansion=0
+tier=2
+pairing=3
+borderZone=1
+
+[zone281];Southwest Ellyrion
+enabled=1
+region=15
+type=0
+name=Southwest Ellyrion
+entry_music=1
+map_enabled=1
+expansion=0
+tier=2
+pairing=3
+borderZone=1
+
+[zone282];South Ellyrion
+enabled=1
+region=15
+type=0
+name=South Ellyrion
+entry_music=1
+map_enabled=1
+expansion=0
+tier=2
+pairing=3
+borderZone=1
+
+[zone283];Southeast Ellyrion
+enabled=1
+region=15
+type=0
+name=Southeast Ellyrion
+entry_music=1
+map_enabled=1
+expansion=0
+tier=2
+pairing=3
+borderZone=1
+
+[zone284];East Ellyrion
+enabled=1
+region=15
+type=0
+name=East Ellyrion
+entry_music=1
+map_enabled=1
+expansion=0
+tier=2
+pairing=3
+borderZone=1
+
+[zone285];West Saphery
+enabled=1
+region=16
+type=0
+name=West Saphery
+entry_music=1
+map_enabled=1
+expansion=0
+tier=3
+pairing=3
+borderZone=1
+
+[zone286];SW Saphery
+enabled=1
+region=16
+type=0
+name=SW Saphery
+entry_music=1
+map_enabled=1
+expansion=0
+tier=3
+pairing=3
+borderZone=1
+
+[zone287];South Saphery
+enabled=1
+region=16
+type=0
+name=South Saphery
+entry_music=1
+map_enabled=1
+expansion=0
+tier=3
+pairing=3
+borderZone=1
+
+[zone288];SE Saphery
+enabled=1
+region=16
+type=0
+name=SE Saphery
+entry_music=1
+map_enabled=1
+expansion=0
+tier=3
+pairing=3
+borderZone=1
+
+[zone289];East Saphery
+enabled=1
+region=16
+type=0
+name=East Saphery
+entry_music=1
+map_enabled=1
+expansion=0
+tier=3
+pairing=3
+borderZone=1
+
+[zone290];The Inner Sea
+enabled=1
+serverEnabled=1
+region=4
+type=0
+name=The Inner Sea
+entry_music=1
+map_enabled=1
+expansion=0
+tier=1
+pairing=3
+borderZone=1
+[zone291];North Eataine
+enabled=1
+region=4
+type=0
+name=North Eataine
+entry_music=1
+map_enabled=1
+expansion=0
+tier=4
+pairing=3
+borderZone=1
+
+[zone292];South Eataine
+enabled=1
+region=4
+type=0
+name=South Eataine
+entry_music=1
+map_enabled=1
+expansion=0
+tier=4
+pairing=3
+borderZone=1
+;=========================================
+;RvR Dungeon Instances
+;;=========================================
+;
+
+
+[zone241]; RvR Lair 1
+
+enabled=1
+
+serverEnabled=1
+
+region=241
+noMount=1
+type=0
+
+name=Tomb of the Stars
+entry_music=1
+zoneInside=1
+map_enabled=1
+expansion=0
+
+[zone242]; RvR Lair 2
+
+enabled=1
+
+serverEnabled=1
+
+region=242
+noMount=1
+type=0
+zoneInside=1
+name=Tomb of the Moon
+entry_music=1
+map_enabled=1
+expansion=0
+
+[zone243]; RvR Lair 3
+
+enabled=1
+
+serverEnabled=1
+zoneInside=1
+region=243
+noMount=1
+type=0
+name=Tomb of the Sky
+entry_music=1
+map_enabled=1
+expansion=0
+
+[zone244]; RvR Lair 4
+
+enabled=1
+
+serverEnabled=1
+zoneInside=1
+region=244
+noMount=1
+type=0
+name=Tomb of the Sun
+entry_music=1
+map_enabled=1
+expansion=0
+
+
+;=========================================
+;Dark Elf and High Elf Forts and Dungeons
+;=========================================
+
+[zone260];Lost Vale
+enabled=1
+serverEnabled=1
+region=260
+type=0
+name=Lost Vale
+entry_music=1
+map_enabled=1
+expansion=0
+tier=3
+pairing=3
+
+[zone261];Dark Elf Fort
+enabled=0
+region=7
+type=0
+name=Lost Vale
+entry_music=1
+map_enabled=1
+expansion=0
+tier=3
+pairing=3
+
+[zone262];High Elf Fort
+enabled=0
+region=7
+type=0
+name=High Elf Fort
+entry_music=1
+map_enabled=1
+expansion=0
+tier=3
+pairing=3
+
+[zone263];Lost Vale Instance 1
+enabled=1
+serverEnabled=1
+region=263
+type=0
+name=Lost Vale Instance 1
+entry_music=1
+map_enabled=1
+expansion=0
+zoneInside=1
+noMount=1
+tier=3
+pairing=3
+
+[zone264];Lost Vale Instance 2
+enabled=1
+serverEnabled=1
+region=264
+type=0
+name=Lost Vale Instance 2
+entry_music=1
+map_enabled=1
+expansion=0
+zoneInside=1
+noMount=1
+tier=3
+pairing=3
+
+[zone265];Lost Vale Instance 3
+enabled=1
+serverEnabled=1
+region=265
+type=0
+name=Lost Vale Instance 3
+entry_music=1
+map_enabled=1
+expansion=0
+zoneInside=1
+noMount=1
+tier=3
+pairing=3
+
+[zone266];Lost Vale Instance 4
+enabled=1
+region=266
+type=0
+name=Lost Vale Instance 4
+entry_music=1
+map_enabled=1
+expansion=0
+zoneInside=1
+noMount=1
+tier=3
+pairing=3
+
+
+;=====================================
+;Dark Elf and High Elf Scenario Zones
+;=====================================
+
+[zone230]; Khaine's Embrace
+enabled=1
+serverEnabled=1
+region=230
+type=0
+name=Khaine's Embrace
+noMount=1
+entry_music=1
+map_enabled=1
+expansion=0
+
+[zone231]; Phoenix Gate
+enabled=1
+serverEnabled=1
+region=231
+type=0
+name=Phoenix Gate
+entry_music=1
+map_enabled=1
+expansion=0
+
+[zone232]; Tor Anroc
+enabled=1
+serverEnabled=1
+region=232
+type=0
+name=Tor Anroc
+zoneInside=1
+noMount=1
+entry_music=1
+map_enabled=1
+expansion=0
+
+[zone233]; Scenario
+enabled=1
+serverEnabled=1
+region=233
+type=0
+name=Scenario
+entry_music=1
+map_enabled=1
+expansion=0
+[zone234]; Serpent's passage
+enabled=1
+serverEnabled=1
+region=234
+type=0
+name=Serpent's passage
+entry_music=1
+map_enabled=1
+expansion=0
+
+[zone235]; Dragon's Bane
+enabled=1
+serverEnabled=1
+region=235
+type=0
+name=Dragon's Bane
+entry_music=1
+map_enabled=1
+expansion=0
+
+[zone236]; Finuval Plains
+enabled=1
+serverEnabled=1
+region=236
+type=0
+name=Finuval Plains
+entry_music=1
+map_enabled=1
+expansion=0
+
+[zone237]; Caledor Woods
+enabled=1
+serverEnabled=1
+region=237
+type=0
+name=Caledor Woods
+entry_music=1
+map_enabled=1
+expansion=0
+
+[zone238]; Blood of Blackcairn
+enabled=1
+serverEnabled=1
+region=238
+type=0
+name=Blood of Blackcairn
+entry_music=1
+map_enabled=1
+expansion=0
+
+
+;=====================================
+
+[zone050]; Hunter's Vale
+enabled=1
+serverEnabled=1
+region=50
+override_time=10800
+type=0
+name=Hunter's Vale
+entry_music=1
+map_enabled=1
+expansion=0
+
+
+[zone051]; Bloodborn Keep
+
+enabled=1
+serverEnabled=1
+region=51
+type=0
+name=Bloodborn Keep
+entry_music=1
+map_enabled=1
+expansion=0
+[zone052]; Bugman's Brewery
+enabled=1
+serverEnabled=1
+region=52
+
+type=0
+name=Bugman's Brewery
+entry_music=1
+map_enabled=1
+expansion=0
+
+;=====================================
+;RvR Dungeon - Tomb Kings
+;=====================================
+
+[zone179];RvR Dungeon
+enabled=1
+serverEnabled=1
+region=179
+type=0
+name=Tomb Kings
+map_enabled=1
+expansion=0
+zoneInside=1
+noMount=1
+tier=4
+pairing=2
+
+
+[zone191];RvR Terrain
+enabled=1
+serverEnabled=1
+region=9
+type=0
+name=Tomb Kings
+map_enabled=1
+expansion=0
+tier=4
+pairing=2
+borderZone=1
+defaultStepEffect=2
+
+
+[zone199];RvR Dungeon - North Scenery
+enabled=1
+serverEnabled=1
+region=9
+type=0
+name=Tomb Kings North Scenery
+map_enabled=1
+expansion=0
+tier=4
+pairing=2
+
+[zone246];RvR Dungeon - Northeast Scenery
+enabled=1
+serverEnabled=1
+region=9
+type=0
+name=Tomb Kings Northeast Scenery
+map_enabled=1
+expansion=0
+tier=4
+pairing=2
+
+[zone247];RvR Dungeon - Northwest Scenery
+enabled=1
+serverEnabled=1
+region=9
+type=0
+name=Tomb Kings Northwest Scenery
+map_enabled=1
+expansion=0
+tier=4
+pairing=2
+
+[zone264];RvR Dungeon - South Scenery
+enabled=1
+region=9
+type=0
+name=Tomb Kings South Scenery
+map_enabled=1
+expansion=0
+tier=4
+pairing=2
+
+[zone263];RvR Dungeon - Southeast Scenery
+enabled=1
+region=9
+type=0
+name=Tomb Kings Southeast Scenery
+map_enabled=1
+expansion=0
+tier=4
+pairing=2
+
+[zone265];RvR Dungeon - Southwest Scenery
+enabled=1
+region=9
+type=0
+name=Tomb Kings Southwest Scenery
+map_enabled=1
+expansion=0
+tier=4
+pairing=2
+
+[zone248];RvR Dungeon - East Scenery
+enabled=1
+region=9
+type=0
+name=Tomb Kings East Scenery
+map_enabled=1
+expansion=0
+tier=4
+pairing=2
+
+[zone266];RvR Dungeon - West Scenery
+enabled=1
+region=9
+type=0
+name=Tomb Kings West Scenery
+map_enabled=1
+expansion=0
+tier=4
+pairing=2
+
+
+;=====================================
+;Testing Zones
+;=====================================
+
+
+[zone293];RvR Keep Zone
+enabled=0
+serverEnabled=0
+region=005
+type=0
+name=RvR Keep Zone
+entry_music=1
+map_enabled=1
+expansion=0
+
+
+[zone294];Item Test Zone
+enabled=1
+serverEnabled=1
+region=005
+type=0
+name=Item Test Zone
+entry_music=1
+map_enabled=1
+expansion=0
+
+
+[zone295];Pigwank Hills
+enabled=1
+serverEnabled=1
+region=005
+type=0
+name=Pigwank Hills
+entry_music=1
+map_enabled=1
+expansion=0
+borderZone=1
+
+[zone296];The Bog of Pigwank 
+enabled=1
+serverEnabled=1
+region=005
+type=0
+name=The Bog of Pigwank
+entry_music=1
+map_enabled=1
+expansion=0
+
+[zone297];Mount Pigwank
+enabled=1
+serverEnabled=1
+region=005
+type=0
+name=Mount Pigwank
+entry_music=1
+map_enabled=1
+expansion=0
+borderZone=1
+
+[zone298];The Tomb of Pigwank
+enabled=1
+serverEnabled=1
+region=005
+type=0
+name=The Tomb of Pigwank
+entry_music=1
+map_enabled=1
+expansion=0
+
+[zone299];Pigwank Barrows
+enabled=1
+serverEnabled=1
+region=005
+type=0
+name=Pigwank Barrows
+entry_music=1
+map_enabled=1
+expansion=0
+
+;=====================================
+
+[zone301];NW TK Scenery
+enabled=1
+region=9
+type=0
+name=TK Scenery
+entry_music=1
+map_enabled=1
+expansion=0
+borderZone=1
+
+
+[zone302];NE TK Scenery
+enabled=1
+region=9
+type=0
+name=TK Scenery
+entry_music=1
+map_enabled=1
+expansion=0
+borderZone=1
+
+
+[zone303];East TK Scenery
+enabled=1
+region=9
+type=0
+name=TK Scenery
+entry_music=1
+map_enabled=1
+expansion=0
+borderZone=1
+
+
+[zone304];West TK Scenery
+enabled=1
+region=9
+type=0
+name=TK Scenery
+entry_music=1
+map_enabled=1
+expansion=0
+borderZone=1
+
+
+[zone305];SE TK Scenery
+enabled=1
+region=9
+type=0
+name=TK Scenery
+entry_music=1
+map_enabled=1
+expansion=0
+borderZone=1
+
+
+[zone306];South TK Scenery
+enabled=1
+region=9
+type=0
+name=TK Scenery
+entry_music=1
+map_enabled=1
+expansion=0
+borderZone=1
+
+
+[zone307];SW TK Scenery
+enabled=1
+region=9
+type=0
+name=TK Scenery
+entry_music=1
+map_enabled=1
+expansion=0
+borderZone=1
+
+;------------------------------------------;
+; Expansion Zones               ;
+;------------------------------------------;
+
+[zone410];Thanquol's Incursion
+enabled=1
+serverEnabled=1
+region=410
+type=0
+name=Thanquol's Incursion
+entry_music=1
+map_enabled=1
+expansion=0
+
+[zone411];Bright Wizard College
+enabled=1
+serverEnabled=1
+region=411
+type=0
+name=Thanquol's Incursion
+entry_music=1
+map_enabled=1
+expansion=0
+
+[zone412];Green
+enabled=1
+serverEnabled=1
+region=412
+type=0
+name=Green
+entry_music=1
+map_enabled=1
+expansion=0
+
+

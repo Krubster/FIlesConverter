@@ -1,0 +1,363 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectGuid>{EC36A004-E138-4E6A-BC73-021353BAED5A}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <OutputType>Library</OutputType>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>False</AllowUnsafeBlocks>
+    <NoStdLib>False</NoStdLib>
+    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+    <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
+    <NoWin32Manifest>False</NoWin32Manifest>
+    <OutputPath>bin\$(Configuration)\$(Platform)</OutputPath>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+    <SignAssembly>False</SignAssembly>
+    <DelaySign>False</DelaySign>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Platform)' == 'AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <BaseAddress>4194304</BaseAddress>
+    <RegisterForComInterop>False</RegisterForComInterop>
+    <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
+    <FileAlignment>4096</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugSymbols>true</DebugSymbols>
+    <Optimize>False</Optimize>
+    <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
+    <BaseIntermediateOutputPath>obj\</BaseIntermediateOutputPath>
+    <AssemblyName>Niflib</AssemblyName>
+    <DebugType>Full</DebugType>
+    <DefineConstants>OpenTK</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'OpenTK' ">
+    <DebugSymbols>true</DebugSymbols>
+    <Optimize>True</Optimize>
+    <AssemblyName>Niflib.OpenTK</AssemblyName>
+    <CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
+    <BaseIntermediateOutputPath>obj\</BaseIntermediateOutputPath>
+    <DebugType>None</DebugType>
+    <DefineConstants>OpenTK</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'SharpDX' ">
+    <AssemblyName>Niflib.SharpDX</AssemblyName>
+    <Optimize>True</Optimize>
+    <CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
+    <BaseIntermediateOutputPath>obj\</BaseIntermediateOutputPath>
+    <DebugType>None</DebugType>
+    <DefineConstants>SharpDX</DefineConstants>
+    <StartAction>Program</StartAction>
+    <StartProgram>bin\SharpDX\Examples.exe</StartProgram>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'MonoGame' ">
+    <AssemblyName>Niflib.MonoGame</AssemblyName>
+    <Optimize>True</Optimize>
+    <CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
+    <BaseIntermediateOutputPath>obj\</BaseIntermediateOutputPath>
+    <DebugType>None</DebugType>
+    <DefineConstants>MonoGame</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Optimize>false</Optimize>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'MonoGame|AnyCPU'">
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'MonoGame|x64'">
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'OpenTK|AnyCPU'">
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'OpenTK|x64'">
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'SharpDX|AnyCPU'">
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'SharpDX|x64'">
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup Condition=" '$(Configuration)' == 'SharpDX' ">
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+  </ItemGroup>
+  <ItemGroup Condition=" '$(Configuration)' == 'MonoGame' ">
+    <Reference Include="MonoGame.Framework">
+      <HintPath>$(SolutionDir)packages\MonoGame.Binaries.3.2.0\build\net40\MonoGame.Framework.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+  </ItemGroup>
+  <ItemGroup Condition=" '$(Configuration)' == 'OpenTK' ">
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+  </ItemGroup>
+  <ItemGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <Reference Include="OpenTK">
+      <HintPath>$(SolutionDir)packages\OpenTK.1.1.1589.5942\lib\NET40\OpenTK.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Niflib\ATextureRenderData.cs" />
+    <Compile Include="Niflib\BaseKey.cs" />
+    <Compile Include="Niflib\ByteKey.cs" />
+    <Compile Include="Niflib\ChannelData.cs" />
+    <Compile Include="Niflib\Color4Key.cs" />
+    <Compile Include="Niflib\eAlphaFormat.cs" />
+    <Compile Include="Niflib\eBillboardMode.cs" />
+    <Compile Include="Niflib\eChannelConvention.cs" />
+    <Compile Include="Niflib\eChannelType.cs" />
+    <Compile Include="Niflib\eCoordGenType.cs" />
+    <Compile Include="Niflib\eDecayType.cs" />
+    <Compile Include="Niflib\eEffectType.cs" />
+    <Compile Include="Niflib\eFaceDrawMode.cs" />
+    <Compile Include="Niflib\eKeyType.cs" />
+    <Compile Include="Niflib\eMipMapFormat.cs" />
+    <Compile Include="Niflib\eNifVersion.cs" />
+    <Compile Include="Niflib\ePixelFormat.cs" />
+    <Compile Include="Niflib\ePixelLayout.cs" />
+    <Compile Include="Niflib\eStencilAction.cs" />
+    <Compile Include="Niflib\eStencilCompareMode.cs" />
+    <Compile Include="Niflib\eSymmetryType.cs" />
+    <Compile Include="Niflib\eTargetColor.cs" />
+    <Compile Include="Niflib\eTexClampMode.cs" />
+    <Compile Include="Niflib\eTexFilterMode.cs" />
+    <Compile Include="Niflib\eTexTransform.cs" />
+    <Compile Include="Niflib\eTexType.cs" />
+    <Compile Include="Niflib\BoolKey.cs" />
+    <Compile Include="Niflib\FloatKey.cs" />
+    <Compile Include="Niflib\KeyGroup.cs" />
+    <Compile Include="Niflib\LODRange.cs" />
+    <Compile Include="Niflib\MipMap.cs" />
+    <Compile Include="Niflib\Morph.cs" />
+    <Compile Include="Niflib\MorphWeight.cs" />
+    <Compile Include="Niflib\NiAlphaController.cs" />
+    <Compile Include="Niflib\NiAlphaProperty.cs" />
+    <Compile Include="Niflib\NiAmbientLight.cs" />
+    <Compile Include="Niflib\NiAutoNormalParticles.cs" />
+    <Compile Include="Niflib\NiAutoNormalParticlesData.cs" />
+    <Compile Include="Niflib\NiAVObject.cs" />
+    <Compile Include="Niflib\NiBillboardNode.cs" />
+    <Compile Include="Niflib\NiBinaryExtraData.cs" />
+    <Compile Include="Niflib\NiBooleanExtraData.cs" />
+    <Compile Include="Niflib\NiBoolInterpController.cs" />
+    <Compile Include="Niflib\NiMultiTargetTransformController.cs" />
+    <Compile Include="Niflib\NiPathInterpolator.cs" />
+    <Compile Include="Niflib\NiMeshPSysData.cs" />
+    <Compile Include="Niflib\NiMeshParticleSystem.cs" />
+    <Compile Include="Niflib\NiPSysCylinderEmitter.cs" />
+    <Compile Include="Niflib\NiPSysBombModifier.cs" />
+    <Compile Include="Niflib\NiPSysGravityStrengthCtlr.cs" />
+    <Compile Include="Niflib\NiPSysSphericalCollider.cs" />
+    <Compile Include="Niflib\NiPSysResetOnLoopCtlr.cs" />
+    <Compile Include="Niflib\NiPSysSphereEmitter.cs" />
+    <Compile Include="Niflib\NiPSysMeshUpdateModifier.cs" />
+    <Compile Include="Niflib\NiPSysEmitterDeclinationCtlr.cs" />
+    <Compile Include="Niflib\NiPSysFieldMaxDistanceCtlr.cs" />
+    <Compile Include="Niflib\NiPSysFieldModifier.cs" />
+    <Compile Include="Niflib\NiPSysEmitterPlanarAngleCtlr.cs" />
+    <Compile Include="Niflib\NiPSysEmitterDeclinationVarCtlr.cs" />
+    <Compile Include="Niflib\NiPSysEmitterPlanarAngleVarCtlr.cs" />
+    <Compile Include="Niflib\NiPSysFieldMagnitudeCtlr.cs" />
+    <Compile Include="Niflib\NiPSysFieldAttenuationCtlr.cs" />
+    <Compile Include="Niflib\NiPSysEmitterSpeedCtlr.cs" />
+    <Compile Include="Niflib\NiPSysEmitterInitialRadiusCtlr.cs" />
+    <Compile Include="Niflib\NiPSysModifierFloatCtlr.cs" />
+    <Compile Include="Niflib\NiPSysEmitterLifeSpanCtlr.cs" />
+    <Compile Include="Niflib\NiSortAdjustNode.cs" />
+    <Compile Include="Niflib\NiPoint3Interpolator.cs" />
+    <Compile Include="Niflib\NiBoolTimelineInterpolator.cs" />
+    <Compile Include="Niflib\NiCamera.cs" />
+    <Compile Include="Niflib\NiCollisionData.cs" />
+    <Compile Include="Niflib\NiBoolnterpolator.cs" />
+    <Compile Include="Niflib\NiBoolData.cs" />
+    <Compile Include="Niflib\NiKeyBasedInterpolator.cs" />
+    <Compile Include="Niflib\NiCollisionObject.cs" />
+    <Compile Include="Niflib\NiColorData.cs" />
+    <Compile Include="Niflib\NiColorExtraData.cs" />
+    <Compile Include="Niflib\NiDirectionalLight.cs" />
+    <Compile Include="Niflib\NiDitherProperty.cs" />
+    <Compile Include="Niflib\NiDynamicEffect.cs" />
+    <Compile Include="Niflib\NiExtraData.cs" />
+    <Compile Include="Niflib\NiFile.cs" />
+    <Compile Include="Niflib\NiFloatData.cs" />
+    <Compile Include="Niflib\NiFloatExtraData.cs" />
+    <Compile Include="Niflib\NiFloatInterpController.cs" />
+    <Compile Include="Niflib\NiFogProperty.cs" />
+    <Compile Include="Niflib\NiFooter.cs" />
+    <Compile Include="Niflib\NiGeometry.cs" />
+    <Compile Include="Niflib\NiGeometryData.cs" />
+    <Compile Include="Niflib\NiGeomMorpherController.cs" />
+    <Compile Include="Niflib\NiGravity.cs" />
+    <Compile Include="Niflib\NiHeader.cs" />
+    <Compile Include="Niflib\NiIntegerExtraData.cs" />
+    <Compile Include="Niflib\NiFloatsExtraData.cs" />
+    <Compile Include="Niflib\NiIntegersExtraData.cs" />
+    <Compile Include="Niflib\NiInterpController.cs" />
+    <Compile Include="Niflib\NiInterpolator.cs" />
+    <Compile Include="Niflib\NiPSysBoxEmitter.cs" />
+    <Compile Include="Niflib\NiPSysMeshEmitter.cs" />
+    <Compile Include="Niflib\NiPSysDragModifier.cs" />
+    <Compile Include="Niflib\NiPSysModifierBoolCtlr.cs" />
+    <Compile Include="Niflib\NiPSysModifierActiveCtlr.cs" />
+    <Compile Include="Niflib\NiPSysPositionModifier.cs" />
+    <Compile Include="Niflib\NiPSysBoundUpdateModifier.cs" />
+    <Compile Include="Niflib\NiPSysPlanarCollider.cs" />
+    <Compile Include="Niflib\NiPSysColliderManager.cs" />
+    <Compile Include="Niflib\NiPSysGravityModifier.cs" />
+    <Compile Include="Niflib\NiPSysCollider.cs" />
+    <Compile Include="Niflib\NiPSysRotationModifier.cs" />
+    <Compile Include="Niflib\NiPSysGrowFadeModifier.cs" />
+    <Compile Include="Niflib\NiPSysColorModifier.cs" />
+    <Compile Include="Niflib\NiPSysVolumeEmitter.cs" />
+    <Compile Include="Niflib\NiPSysEmitter.cs" />
+    <Compile Include="Niflib\NiPSysSpawnModifier.cs" />
+    <Compile Include="Niflib\NiPSysAgeDeathModifier.cs" />
+    <Compile Include="Niflib\NiPSysData.cs" />
+    <Compile Include="Niflib\NiPSysUpdateCtlr.cs" />
+    <Compile Include="Niflib\NiPSysModifierCtlr.cs" />
+    <Compile Include="Niflib\NiPSysEmitterCtlr.cs" />
+    <Compile Include="Niflib\NiPSysModifier.cs" />
+    <Compile Include="Niflib\NiParticleSystem.cs" />
+    <Compile Include="Niflib\NiFloatInterpolator.cs" />
+    <Compile Include="Niflib\NiTransformInterpolator.cs" />
+    <Compile Include="Niflib\NiTransformData.cs" />
+    <Compile Include="Niflib\NiTransformEvaluator.cs" />
+    <Compile Include="Niflib\NiTransformController.cs" />
+    <Compile Include="Niflib\NiKeyframeController.cs" />
+    <Compile Include="Niflib\NiKeyframeData.cs" />
+    <Compile Include="Niflib\NiLight.cs" />
+    <Compile Include="Niflib\NiLightColorController.cs" />
+    <Compile Include="Niflib\NiLODData.cs" />
+    <Compile Include="Niflib\NiLODNode.cs" />
+    <Compile Include="Niflib\NiLookAtController.cs" />
+    <Compile Include="Niflib\NiMaterialColorController.cs" />
+    <Compile Include="Niflib\NiMaterialProperty.cs" />
+    <Compile Include="Niflib\NiMorphData.cs" />
+    <Compile Include="Niflib\NiNode.cs" />
+    <Compile Include="Niflib\NiObject.cs" />
+    <Compile Include="Niflib\NiObjectNET.cs" />
+    <Compile Include="Niflib\NiPalette.cs" />
+    <Compile Include="Niflib\NiParticleBomb.cs" />
+    <Compile Include="Niflib\NiParticleColorModifier.cs" />
+    <Compile Include="Niflib\NiParticleGrowFade.cs" />
+    <Compile Include="Niflib\NiParticleMeshes.cs" />
+    <Compile Include="Niflib\NiParticleMeshesData.cs" />
+    <Compile Include="Niflib\NiParticleMeshModifier.cs" />
+    <Compile Include="Niflib\NiParticleModifier.cs" />
+    <Compile Include="Niflib\NiParticleRotation.cs" />
+    <Compile Include="Niflib\NiParticles.cs" />
+    <Compile Include="Niflib\NiParticlesData.cs" />
+    <Compile Include="Niflib\NiParticleSystemController.cs" />
+    <Compile Include="Niflib\NiPathController.cs" />
+    <Compile Include="Niflib\NiPixelData.cs" />
+    <Compile Include="Niflib\NiPlanarCollider.cs" />
+    <Compile Include="Niflib\NiPoint3InterpController.cs" />
+    <Compile Include="Niflib\NiPointLight.cs" />
+    <Compile Include="Niflib\NiPosData.cs" />
+    <Compile Include="Niflib\NiProperty.cs" />
+    <Compile Include="Niflib\NiRangeLODData.cs" />
+    <Compile Include="Niflib\NiRef.cs" />
+    <Compile Include="Niflib\NiRotatingParticles.cs" />
+    <Compile Include="Niflib\NiRotatingParticlesData.cs" />
+    <Compile Include="Niflib\NiScreenLODData.cs" />
+    <Compile Include="Niflib\NiShadeProperty.cs" />
+    <Compile Include="Niflib\NiSingleInterpController.cs" />
+    <Compile Include="Niflib\NiSkinData.cs" />
+    <Compile Include="Niflib\NiSkinInstance.cs" />
+    <Compile Include="Niflib\NiSkinPartition.cs" />
+    <Compile Include="Niflib\NiSourceTexture.cs" />
+    <Compile Include="Niflib\NiSpecularProperty.cs" />
+    <Compile Include="Niflib\NiSphericalCollider.cs" />
+    <Compile Include="Niflib\NiSpotLight.cs" />
+    <Compile Include="Niflib\NiStencilProperty.cs" />
+    <Compile Include="Niflib\NiString.cs" />
+    <Compile Include="Niflib\NiStringExtraData.cs" />
+    <Compile Include="Niflib\NiStringsExtraData.cs" />
+    <Compile Include="Niflib\NiSwitchNode.cs" />
+    <Compile Include="Niflib\NiTextKeyExtraData.cs" />
+    <Compile Include="Niflib\NiTexture.cs" />
+    <Compile Include="Niflib\NiTextureEffect.cs" />
+    <Compile Include="Niflib\NiTextureTransformController.cs" />
+    <Compile Include="Niflib\NiTexturingProperty.cs" />
+    <Compile Include="Niflib\NiTimeController.cs" />
+    <Compile Include="Niflib\NiTriBasedGeomData.cs" />
+    <Compile Include="Niflib\NiTriBasedGeometry.cs" />
+    <Compile Include="Niflib\NiTriShape.cs" />
+    <Compile Include="Niflib\NiTriShapeData.cs" />
+    <Compile Include="Niflib\NiTriStrips.cs" />
+    <Compile Include="Niflib\NiTriStripsData.cs" />
+    <Compile Include="Niflib\NiUVController.cs" />
+    <Compile Include="Niflib\NiUVData.cs" />
+    <Compile Include="Niflib\NiVectorExtraData.cs" />
+    <Compile Include="Niflib\NiVertexColorProperty.cs" />
+    <Compile Include="Niflib\NiVisController.cs" />
+    <Compile Include="Niflib\NiVisData.cs" />
+    <Compile Include="Niflib\NiWireframeProperty.cs" />
+    <Compile Include="Niflib\NiZBufferProperty.cs" />
+    <Compile Include="Niflib\Particle.cs" />
+    <Compile Include="Niflib\ParticleDesc.cs" />
+    <Compile Include="Niflib\QuatKey.cs" />
+    <Compile Include="Niflib\ReaderExtensions.cs" />
+    <Compile Include="Niflib\SkinData.cs" />
+    <Compile Include="Niflib\SkinPartition.cs" />
+    <Compile Include="Niflib\SkinPartitionUnkownItem1.cs" />
+    <Compile Include="Niflib\SkinTransform.cs" />
+    <Compile Include="Niflib\SkinWeight.cs" />
+    <Compile Include="Niflib\StringKey.cs" />
+    <Compile Include="Niflib\TexDesc.cs" />
+    <Compile Include="Niflib\Triangle.cs" />
+    <Compile Include="Niflib\VecKey.cs" />
+    <Compile Include="NodeWalker.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TriangleWalker.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="OpenTK, Version=1.1.0.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL">
+      <HintPath>..\packages\OpenTK.1.1.1589.5942\lib\NET40\OpenTK.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpDX, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpDX.4.2.0\lib\net40\SharpDX.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup Condition=" '$(Platform)' == 'x64' ">
+    <PlatformTarget>x64</PlatformTarget>
+    <BaseAddress>4194304</BaseAddress>
+    <RegisterForComInterop>False</RegisterForComInterop>
+    <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
+    <FileAlignment>4096</FileAlignment>
+  </PropertyGroup>
+  <Import Project="..\packages\MonoGame.Framework.DesktopGL.3.8.0.1641\build\MonoGame.Framework.DesktopGL.targets" Condition="Exists('..\packages\MonoGame.Framework.DesktopGL.3.8.0.1641\build\MonoGame.Framework.DesktopGL.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>Данный проект ссылается на пакеты NuGet, отсутствующие на этом компьютере. Используйте восстановление пакетов NuGet, чтобы скачать их.  Дополнительную информацию см. по адресу: http://go.microsoft.com/fwlink/?LinkID=322105. Отсутствует следующий файл: {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\MonoGame.Framework.DesktopGL.3.8.0.1641\build\MonoGame.Framework.DesktopGL.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MonoGame.Framework.DesktopGL.3.8.0.1641\build\MonoGame.Framework.DesktopGL.targets'))" />
+  </Target>
+</Project>

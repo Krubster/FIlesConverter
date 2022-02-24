@@ -1,0 +1,2 @@
+FIlesConverter.exe -serialize -in="D:\WAR Tools\PyMeshLab script\lods" -out="D:\WAR Tools\Files Converter\lod binaries"
+FIlesConverter.exe -pack -in="D:\WAR Tools\Files Converter\lod binaries" -out="D:\WAR Tools\Files Converter"
