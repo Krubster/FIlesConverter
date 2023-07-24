@@ -8,403 +8,23 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using Niflib;
 using Niflib.Extensions;
-using OpenTK;
 using FreeImageAPI;
-using System.Xml.Linq;
 using System.Xml;
 using System.Drawing.Imaging;
-using Structures.TriangleNet.Geometry;
 using Point = System.Drawing.Point;
 using Rectangle = System.Drawing.Rectangle;
-using Structures.TriangleNet;
-using Structures.TriangleNet.Meshing;
+using System.Text;
 using WarZoneLib;
+using CommonFConv;
+using TriangleNet;
+using TriangleNet.Meshing;
+using TriangleNet.Geometry;
+using System.Reflection;
+using System.Collections;
+using System.Xml.Linq;
 
 namespace FIlesConverter
 {
-
-    public enum VertexType
-    {
-        Valid,
-        Hole
-    }
-    public struct TerrainVertex
-    {
-        public int ID;
-        public float X;
-        public float Y;
-        public float Z;
-        public VertexType Type;
-
-        public TerrainVertex(int id, float x, float y, float z, VertexType type)
-        {
-            ID = id;
-            X = x;
-            Y = y;
-            Z = z;
-            Type = type;
-        }
-    }
-
-    public struct TerrainPolygon
-    {
-        public TerrainVertex V1, V2, V3;
-
-        public TerrainPolygon(TerrainVertex v1, TerrainVertex v2, TerrainVertex v3)
-        {
-            V1 = v1;
-            V2 = v2;
-            V3 = v3;
-        }
-    }
-
-    public class TerrainMesh
-    {
-        public TerrainVertex[,] HeightMap;
-        public List<TerrainPolygon> Polygons;
-
-        public TerrainMesh(int width, int height)
-        {
-            Polygons = new List<TerrainPolygon>(width * height * 2);
-            HeightMap = new TerrainVertex[width, height];
-            int id = 0;
-            for (int x = 0; x < width; ++x)
-            {
-                for (int y = 0; y < height; ++y)
-                {
-                    HeightMap[x, y] = new TerrainVertex(id++, 0f, 0f, 0f, VertexType.Hole);
-                }
-            }
-        }
-
-        public float[] BuildVertices()
-        {
-            List<float> verts = new List<float>();
-            for (int x = 0; x < HeightMap.GetLength(0); ++x)
-            {
-                for (int y = 0; y < HeightMap.GetLength(1); ++y)
-                {
-                    TerrainVertex vert = HeightMap[x, y];
-                    if (vert.Type != VertexType.Hole)
-                    {
-                        verts.Add(vert.X); verts.Add(vert.Y); verts.Add(vert.Z);
-                    }
-                }
-            }
-            return verts.ToArray();
-        }
-
-        public int[] BuildIndicies()
-        {
-            int[] arr = new int[Polygons.Count * 3];
-            int v = 0;
-            foreach (TerrainPolygon poly in Polygons)
-            {
-                arr[v++] = poly.V1.ID + 1;
-                arr[v++] = poly.V2.ID + 1;
-                arr[v++] = poly.V3.ID + 1;
-            }
-            return arr;
-        }
-    }
-
-    public class WaterBody
-    {
-        public float[] Vertices { get; private set; }
-        public int[] Polygons { get; private set; }
-        public float X { get; private set; }
-        public float Y { get; private set; }
-        public float Z { get; private set; }
-        public string Name { get; private set; }
-        public string Type { get; private set; }
-
-        public WaterBody()
-        {
-        }
-
-        public WaterBody(Mesh mesh, float x, float y, float z, string name, string type)
-        {
-            Name = name;
-            Type = type;
-            X = x;
-            Y = y;
-            Z = z;
-            Vertices = new float[mesh.Vertices.Count * 3];
-            int i = 0;
-            foreach (Vertex vert in mesh.Vertices)
-            {
-                Vertices[i++] = (float)vert.X;
-                Vertices[i++] = (float)vert.Y;
-                Vertices[i++] = 0.0f;
-            }
-            i = 0;
-            Polygons = new int[mesh.Triangles.Count * 3];
-            foreach (Structures.TriangleNet.Topology.Triangle tri in mesh.Triangles)
-            {
-                Polygons[i++] = tri.GetVertexID(0); // ???
-                Polygons[i++] = tri.GetVertexID(1);
-                Polygons[i++] = tri.GetVertexID(2);
-            }
-        }
-
-        public void Serialize(BinaryWriter writer)
-        {
-            writer.Write(Name);
-            writer.Write(Type);
-            writer.Write(X);
-            writer.Write(Y);
-            writer.Write(Z);
-
-            writer.Write(Vertices.Length);
-            for (int i = 0; i < Vertices.Length; ++i)
-            {
-                writer.Write(Vertices[i]);
-            }
-            writer.Write(Polygons.Length);
-            for (int i = 0; i < Polygons.Length; ++i)
-            {
-                writer.Write(Polygons[i]);
-            }
-        }
-
-        public void Deserialize(BinaryReader reader)
-        {
-            Name = reader.ReadString();
-            Type = reader.ReadString();
-            X = reader.ReadSingle();
-            Y = reader.ReadSingle();
-            Z = reader.ReadSingle();
-            int amt = reader.ReadInt32();
-            Vertices = new float[amt];
-            for (int i = 0; i < amt; ++i)
-            {
-                Vertices[i] = reader.ReadSingle();
-            }
-            amt = reader.ReadInt32();
-            Polygons = new int[amt];
-            for (int i = 0; i < amt; ++i)
-            {
-                Polygons[i] = reader.ReadInt32();
-            }
-        }
-    }
-
-    public class TerrainPiece : ObjModel
-    {
-        public float XOffset { get; set; }
-        public float YOffset { get; set; }
-        public TerrainPiece(float x, float y)
-        {
-            XOffset = x;
-            YOffset = y;
-        }
-
-        internal void RemoveOffset()
-        {
-            for (int i = 0; i < Vertices.Length; i += 3)
-            {
-                Vertices[i] -= XOffset;
-                Vertices[i + 1] -= YOffset;
-            }
-        }
-    }
-
-    public class ObjModel
-    {
-        public float[] Vertices { get; set; }
-        public int[] Polygons { get; set; }
-
-        public ObjModel()
-        {
-
-        }
-
-        public ObjModel(float[] verts, int[] tris)
-        {
-            Vertices = verts;
-            Polygons = tris;
-        }
-
-        public ObjModel(List<float> verts, List<int> tris)
-        {
-            Vertices = verts.ToArray();
-            Polygons = tris.ToArray();
-        }
-
-        public ObjModel(Mesh mesh)
-        {
-        }
-
-        public virtual void Serialize(string path)
-        {
-            using (BinaryWriter writer = new BinaryWriter(new FileStream(path, FileMode.Create)))
-            {
-                writer.Write(Vertices.Length);
-                for (int i = 0; i < Vertices.Length; ++i)
-                {
-                    writer.Write(Vertices[i]);
-                }
-                writer.Write(Polygons.Length);
-                for (int i = 0; i < Polygons.Length; ++i)
-                {
-                    writer.Write(Polygons[i]);
-                }
-            }
-        }
-
-        public virtual void SerializeObj(string path)
-        {
-            using (StreamWriter writer = new StreamWriter(new FileStream(path, FileMode.Create)))
-            {
-                for (int i = 0; i < Vertices.Length; i += 3)
-                {
-                    writer.WriteLine($"v {Vertices[i].ToString().Replace(',', '.')} {Vertices[i + 1].ToString().Replace(',', '.')} {Vertices[i + 2].ToString().Replace(',', '.')}");
-                }
-                for (int i = 0; i < Polygons.Length; i += 3)
-                {
-                    writer.WriteLine($"f {Polygons[i]} {Polygons[i + 1]} {Polygons[i + 2]}");
-                }
-            }
-        }
-
-        public virtual void Deserialize(string path)
-        {
-            using (BinaryReader reader = new BinaryReader(new FileStream(path, FileMode.Open)))
-            {
-                int amt = reader.ReadInt32();
-                Vertices = new float[amt];
-                for (int i = 0; i < amt; ++i)
-                {
-                    Vertices[i] = reader.ReadSingle();
-                }
-                amt = reader.ReadInt32();
-                Polygons = new int[amt];
-
-                for (int i = 0; i < amt; ++i)
-                {
-                    Polygons[i] = reader.ReadInt32();
-                }
-            }
-        }
-
-        public void Deserialize(byte[] bytes)
-        {
-            MemoryStream ms = new MemoryStream(bytes);
-            using (BinaryReader reader = new BinaryReader(ms))
-            {
-                int amt = reader.ReadInt32();
-                Vertices = new float[amt];
-                byte[] arr = reader.ReadBytes(amt * sizeof(float));
-                Buffer.BlockCopy(arr, 0, Vertices, 0, arr.Length);
-
-                amt = reader.ReadInt32();
-                Polygons = new int[amt];
-                arr = reader.ReadBytes(amt * sizeof(int));
-                Buffer.BlockCopy(arr, 0, Polygons, 0, arr.Length);
-            }
-            ms.Close();
-            ms.Dispose();
-        }
-
-        public virtual void DeserializeObj(string path)
-        {
-            string[] lines = File.ReadAllLines(path);
-            var vertices = new List<float>();
-            var polygons = new List<int>();
-            foreach (string line in lines)
-            {
-                // строки с вершинами
-                if (line.ToLower().StartsWith("v "))
-                {
-                    var vx = line.Split(' ')
-                                 .Skip(1)
-                                 .Select(v => Single.Parse(v.Replace('.', ',')))
-                                 .ToArray();
-                    vertices.Add(vx[0]);
-                    vertices.Add(vx[1]);
-                    vertices.Add(vx[2]);
-                }
-                // строки с номерами
-                else if (line.ToLower().StartsWith("f"))
-                {
-                    var vx = line.Split(' ')
-                                 .Skip(1)
-                                 .Select(v => Int32.Parse(v.Split('/')[0]))
-                                 .ToArray();
-                    polygons.Add(vx[0]);
-                    polygons.Add(vx[1]);
-                    polygons.Add(vx[2]);
-                }
-            }
-            Vertices = vertices.ToArray();
-            Polygons = polygons.ToArray();
-        }
-
-        public void Refine()
-        {
-            for (int i = 0; i < Polygons.Length; ++i)
-            {
-                Polygons[i] -= 1;
-            }
-        }
-    }
-    [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi)]
-    public struct NifInfo
-    {
-        public int ID;
-        public float MinAngle;
-        public float MaxAngle;
-        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 100)]
-        public string ModelName;
-
-        public NifInfo(int id, string model, float minAngle, float maxAngle)
-        {
-            ID = id;
-            ModelName = model;
-            MinAngle = minAngle;
-            MaxAngle = maxAngle;
-        }
-    }
-
-    [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi)]
-    public struct FixtureInfo
-    {
-        public byte InstanceID;
-        public ushort UniqueID;
-        public int ID;
-        public int NifID;
-        public int O;
-        public int Scale;
-        public double Angle3D;
-        public double XAxis;
-        public double YAxis;
-        public double ZAxis;
-        public double X;
-        public double Y;
-        public double Z;
-        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 100)]
-        public string Name;
-
-
-        public FixtureInfo(int id, ushort uniID, byte instance, int nifID, string name, double x, double y, double z, int o, int scale, double angle3D, double xAxis, double yAxis, double zAxis)
-        {
-            UniqueID = uniID;
-            InstanceID = instance;
-            ID = id;
-            NifID = nifID;
-            Name = name;
-            X = x;
-            Y = y;
-            Z = z;
-            O = o;
-            Scale = scale;
-            Angle3D = angle3D;
-            XAxis = xAxis;
-            YAxis = yAxis;
-            ZAxis = zAxis;
-        }
-    }
-
     public class Program
     {
         public static void Main(string[] args)
@@ -418,11 +38,18 @@ namespace FIlesConverter
             bool simplify = false;
             bool nifToObj = false;
             bool packWarZone = false;
+            bool packHeightmaps = false;
+            bool genNavMesh = false;
+            bool packCpp = false;
+            bool doorless = false;
+            bool hashes = false;
             string pathIn = "";
+            string zonesFolder = ""; 
             string pathOut = "";
             var p = new OptionSet() {
                    { "in=",               "", v => pathIn = v },
                    { "out=",              "", v => pathOut = v  },
+                   { "zonesFolder=",            "", v => zonesFolder = v  },
                    { "serialize",         "", v => serialize = v != null },
                    { "serializeTerrain",  "", v => serializeTerrain = v != null },
                    { "pack",              "", v => pack = v != null },
@@ -432,67 +59,110 @@ namespace FIlesConverter
                    { "reverse",           "", v => reverse = v != null },
                    { "simplify",          "", v => simplify = v != null },
                    { "packWZ",            "", v => packWarZone = v != null },
-            };
+                   { "packHeightmaps",    "", v => packHeightmaps = v != null },
+                   { "genNavmesh",        "", v => genNavMesh = v != null },
+                   { "packCpp",           "", v => packCpp = v != null },
+                   { "doorless",          "", v => doorless = v != null },
+                   { "hashes",            "", v => hashes = v != null },
+
+          };
             List<string> extra = p.Parse(args);
             Console.WriteLine($"- Pack WarZone: {packWarZone}");
             Console.WriteLine($"- Pack: {pack}");
+            Console.WriteLine($"- PackCpp: {packCpp}");
             Console.WriteLine($"- Serialize: {serialize}");
             Console.WriteLine($"- Zones: {zones}");
             Console.WriteLine($"- Simplify: {simplify}");
             Console.WriteLine($"- Serialize Terrain: {serializeTerrain}");
             Console.WriteLine($"- Reverse: {reverse}");
             Console.WriteLine($"- Nif-To-Obj: {nifToObj}");
+            Console.WriteLine($"-- Doorless: {doorless}");
             Console.WriteLine($"- Water: {water}");
+            Console.WriteLine($"- Pack Heightmaps: {packHeightmaps}");
             Console.WriteLine($"- Input: {pathIn}");
             Console.WriteLine($"- Output: {pathOut}");
+            Console.WriteLine($"- GenNavmesh: {genNavMesh}");
+            Console.WriteLine($"- Hashes: {hashes}");
+            Console.WriteLine($"-- ZonesFolder: {zonesFolder}");
             Console.WriteLine("Press any key to start...");
             Console.ReadKey();
-
-            if (!Directory.Exists(pathIn))
+            try
             {
-                Console.WriteLine("Wrong source path!");
-                return;
+                if (!Directory.Exists(pathIn))
+                {
+                    Console.WriteLine("Wrong source path!");
+                    Console.WriteLine("Press any key to exit...");
+                    Console.ReadKey();
+                    return;
+                }
+                if (!Directory.Exists(pathOut))
+                {
+                    Console.WriteLine("Created output bin directory at: " + pathOut);
+                    Directory.CreateDirectory(pathOut);
+                }
+                if (hashes)
+                {
+                    if (!Directory.Exists(zonesFolder))
+                    {
+                        Console.WriteLine("Wrong zones path!");
+                        Console.WriteLine("Press any key to exit...");
+                        Console.ReadKey();
+                        return;
+                    }
+                    PerformBruteforceHashes(pathIn, pathOut, zonesFolder);
+                }
+                if (packHeightmaps)
+                {
+                    PerformPackHeightmaps(pathIn, pathOut);
+                }
+                if (packWarZone)
+                {
+                    PerformPackWZ(pathIn, pathOut, doorless);
+                }
+                if (serializeTerrain)
+                {
+                    PerformSerializeTerrain(pathIn, pathOut);
+                }
+                if (water)
+                {
+                    PerformWater(pathIn, pathOut);
+                }
+                if (nifToObj)
+                {
+                    PerformNifToObj(pathIn, pathOut, doorless);
+                }
+                if (reverse)
+                {
+                    PerformReverse(pathIn, pathOut);
+                }
+                if (packCpp)
+                {
+                    PerformPackCpp(pathIn, pathOut);
+                }
+                if (pack)
+                {
+                    PerformPack(pathIn, pathOut, doorless ? "doorless_fixtures.bin" : "fixtures.bin");
+                }
+                if (serialize)
+                {
+                    PerformSerialize(pathIn, pathOut);
+                }
+                if (zones)
+                {
+                    PerformZones(pathIn, pathOut);
+                }
+                if (simplify)
+                {
+                    PerformSimplify(pathIn, pathOut);
+                }
+                if (genNavMesh)
+                {
+                    PerformNavmeshGeneration(pathIn, pathOut);
+                }
             }
-            if (!Directory.Exists(pathOut))
+            catch (Exception ex)
             {
-                Console.WriteLine("Created output bin directory at: " + pathOut);
-                Directory.CreateDirectory(pathOut);
-            }
-            if (packWarZone)
-            {
-                PerformPackWZ(pathIn, pathOut);
-            }
-            if (serializeTerrain)
-            {
-                PerformSerializeTerrain(pathIn, pathOut);
-            }
-            if (water)
-            {
-                PerformWater(pathIn, pathOut);
-            }
-            if (nifToObj)
-            {
-                PerformNifToObj(pathIn, pathOut);
-            }
-            if (reverse)
-            {
-                PerformReverse(pathIn, pathOut);
-            }
-            if (pack)
-            {
-                PerformPack(pathIn, pathOut);
-            }
-            if (serialize)
-            {
-                PerformSerialize(pathIn, pathOut);
-            }
-            if (zones)
-            {
-                PerformZones(pathIn, pathOut);
-            }
-            if (simplify)
-            {
-                PerformSimplify(pathIn, pathOut);
+                Console.WriteLine(ex.ToString());
             }
             Console.WriteLine();
             Console.WriteLine("Done!");
@@ -500,13 +170,566 @@ namespace FIlesConverter
             Console.ReadKey();
         }
 
-        //Dumb a little, searches output dir of all previous actions (requires zoneInfo.bin, water.bin, terrain.pcx, offset.pcx, holemap.pcx, sector.dat in every zone folder and fixtures.bin, zones.dat, zoneinfo.txt in root folder)
-        private static void PerformPackWZ(string pathIn, string pathOut)
+        private static void PerformBruteforceHashes(string pathIn, string pathOut, string zones)
+        {
+            Dictionary<string, string> nifs = new Dictionary<string, string>();
+            Dictionary<long, string> hashes = new Dictionary<long, string>();
+            Console.WriteLine("Reading nifs...");
+            string[] dirs = Directory.GetDirectories(zones);
+            foreach(string path in dirs)
+            {
+                Console.WriteLine($"Reading {path}");
+                string fixturesConfig = Path.Combine(path, "fixtures.csv");
+                if (!File.Exists(fixturesConfig)){
+                    Console.WriteLine($"{path} doesn't have fixtures.csv file!");
+                    continue;
+                }
+                using (StreamReader reader = new StreamReader(new FileStream(fixturesConfig, FileMode.Open)))
+                {
+                    reader.ReadLine();
+                    reader.ReadLine();
+                    string line = null;
+                    while(!String.IsNullOrEmpty(line = reader.ReadLine()))
+                    {
+                        string[] splitLine = line.Split(',');
+                        string nifNameRaw = splitLine[2].Split(' ')[0]; // second split to remove (Instance X)
+                        string nifName = $"assetdb/fixtures/fi.0.0.{nifNameRaw}.nif";
+                        if (!nifs.ContainsKey(nifName))
+                        {
+                            nifs.Add(nifName, $"fi.0.0.{nifNameRaw}.nif");
+                        }
+                    }
+                }
+            }
+            Console.WriteLine($"Added {nifs.Count} nif entries");
+
+            dirs = Directory.GetFiles(pathIn);
+            int processed = 0;
+            foreach (var dir in dirs)
+            {
+                ++processed;
+                Console.WriteLine($"Processing: {dir}");
+                string fileName = Path.GetFileNameWithoutExtension(dir).Split('_')[1]; //ignore crc part
+                long hash = Convert.ToInt64(fileName.ToLower(), 16);
+                if (!hashes.ContainsKey(hash)) {
+                    hashes.Add(hash, dir);
+                }
+                else
+                {
+                    Console.WriteLine($"Duplicate hash: {dir}");
+                }
+            }
+            Console.WriteLine($"Added {hashes.Count} hashes");
+            Console.WriteLine($"Hashing...");
+            foreach(long hash in hashes.Keys)
+            {
+                foreach(string nifName in nifs.Keys)
+                {
+                    if(hash == MYP.HashWAR(nifName))
+                    {
+                        File.Move(hashes[hash], Path.Combine(pathOut, nifs[nifName]));
+                        break;
+                    }
+                }
+            }
+            Console.WriteLine($"Done!");
+        }
+
+        private static void PerformNavmeshGeneration(string pathIn, string pathOut)
         {
             string[] dirs = Directory.GetDirectories(pathIn);
             int processed = 0;
             Dictionary<string, ObjModel> models = new Dictionary<string, ObjModel>();
-            if (!File.Exists(Path.Combine(@"fixtures.bin")))
+            if (!File.Exists(Path.Combine(@"fixtures_doorless.bin")))
+            {
+                ConsoleColor oldColor = Console.ForegroundColor;
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine($"[OCCLUSION]: No fixtures_doorless.bin in root folder!");
+                Console.ForegroundColor = oldColor;
+                return;
+            }
+            using (BinaryReader reader = new BinaryReader(new FileStream(Path.Combine(@"fixtures_doorless.bin"), FileMode.Open)))
+            {
+                byte version = reader.ReadByte();
+                int amt = reader.ReadInt32();
+                for (int i = 0; i < amt; ++i)
+                {
+                    string name = reader.ReadString();
+                    byte[] bytes = reader.ReadBytes(reader.ReadInt32());
+                    ObjModel model = new ObjModel();
+                    model.Deserialize(bytes);
+                    if (model.Vertices.Length > 0 && model.Polygons.Length > 0)
+                    {
+                        models.Add(name, model);
+                    }
+                    else
+                    {
+                        ConsoleColor oldColor = Console.ForegroundColor;
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine($"[OCCLUSION]: Model {name} has no faces or polygons!");
+                        Console.ForegroundColor = oldColor;
+
+                    }
+                }
+            }
+
+            foreach (var dir in dirs)
+            {
+                ++processed;
+                Console.WriteLine($"Packing: {dir}");
+                string num = Path.GetFileName(dir).Replace("zone", "");
+                num = RemoveZeros(num);
+                int zoneID = int.Parse(num);
+                if (!File.Exists(Path.Combine(pathOut, $"nav_{zoneID}.bin")))
+                {
+                    GenNavMesh(dir, models);
+                }
+                Console.WriteLine($"Packed zone #{zoneID}");
+            }
+        }
+
+        private static void GenNavMesh(string path, Dictionary<string, ObjModel> models)
+        {
+            string num = Path.GetFileName(path).Replace("zone", "");
+            num = RemoveZeros(num);
+            int zoneID = int.Parse(num);
+
+            //Data to load
+            Dictionary<int, CommonFConv.FixtureInfo> FixtureInfos = new Dictionary<int, CommonFConv.FixtureInfo>();
+            Dictionary<int, NifInfo> ModelInfos = new Dictionary<int, NifInfo>();
+            List<WaterBody> bodies = new List<WaterBody>();
+
+            //Loading data
+            int scaleFactor = 0;
+            int offsetFactor = 0;
+            byte[,] _OffsetData;
+            byte[,] _TerrainData;
+            ushort[,] HeightMap;
+            bool[,] HoleMap;
+
+            using (StreamReader reader = new StreamReader(new FileStream(Path.Combine(path, "sector.dat"), FileMode.Open)))
+            {
+                string line = null;
+                while ((line = reader.ReadLine()) != null)
+                {
+                    if (line.Contains("scalefactor"))
+                    {
+                        scaleFactor = Convert.ToInt32(line.Split('=')[1]);
+                    }
+                    if (line.Contains("offsetfactor"))
+                    {
+                        offsetFactor = Convert.ToInt32(line.Split('=')[1]);
+                    }
+                }
+            }
+
+            Bitmap bitmap = new Bitmap(new FileStream(Path.Combine(path, "offset.png"), FileMode.Open));
+            _OffsetData = new byte[bitmap.Width, bitmap.Height];
+            for (int x = 0; x < bitmap.Width; ++x)
+            {
+                for (int y = 0; y < bitmap.Height; ++y)
+                {
+                    _OffsetData[x, y] = bitmap.GetPixel(x, y).R;
+                }
+            }
+            bitmap.Dispose();
+
+            bitmap = new Bitmap(new FileStream(Path.Combine(path, "terrain.png"), FileMode.Open));
+            _TerrainData = new byte[bitmap.Width, bitmap.Height];
+            for (int x = 0; x < bitmap.Width; ++x)
+            {
+                for (int y = 0; y < bitmap.Height; ++y)
+                {
+                    _TerrainData[x, y] = bitmap.GetPixel(x, y).R;
+                }
+            }
+            bitmap.Dispose();
+            if (!File.Exists(Path.Combine(path, "holemap.pcx")))
+            {
+                if (File.Exists(Path.Combine(path, "holemap.png")))
+                {
+                    File.Move(Path.Combine(path, "holemap.png"), Path.Combine(path, "holemap.pcx"));
+                }
+            }
+            HoleMap = new bool[_TerrainData.GetLength(0), _TerrainData.GetLength(1)];
+
+            for (int x = 0; x < HoleMap.GetLength(0); ++x)
+            {
+                for (int y = 0; y < HoleMap.GetLength(1); ++y)
+                {
+                    HoleMap[x, y] = false;
+                }
+            }
+
+            if (File.Exists(Path.Combine(path, "holemap.pcx")))
+            {
+                FreeImageAPI.FreeImageBitmap fiBitmap = new FreeImageAPI.FreeImageBitmap(new FileStream(Path.Combine(path, "holemap.pcx"), FileMode.Open), FREE_IMAGE_FORMAT.FIF_PCX, FREE_IMAGE_LOAD_FLAGS.DEFAULT);
+                fiBitmap.Rescale(new Size(_TerrainData.GetLength(0), _TerrainData.GetLength(1)), FREE_IMAGE_FILTER.FILTER_BOX);
+                bitmap = fiBitmap.ToBitmap();
+
+                for (int x = 0; x < bitmap.Width; ++x)
+                {
+                    for (int y = 0; y < bitmap.Height; ++y)
+                    {
+                        byte pixel = bitmap.GetPixel(x, y).R;
+                        if (pixel == 0)
+                        {
+                            HoleMap[x, y] = true;
+                        }
+                    }
+                }
+                bitmap.Dispose();
+                fiBitmap.Dispose();
+            }
+
+            HeightMap = new ushort[_TerrainData.GetLength(0), _TerrainData.GetLength(1)];
+            for (int x = 0; x < _TerrainData.GetLength(0); x++)
+            {
+                for (int y = 0; y < _TerrainData.GetLength(1); y++)
+                {
+                    HeightMap[x, y] = (ushort)(scaleFactor * _TerrainData[x, y] + offsetFactor * _OffsetData[x, y]);
+                }
+            }
+
+            TerrainMesh tMesh = Utils.CreateTerrain(ref HeightMap, ref HoleMap);
+
+            float[] verts = tMesh.BuildVertices();
+            List<WarZoneLib.Vector3> verts_out = new List<WarZoneLib.Vector3>(verts.Length / 3);
+            int[] inds = tMesh.BuildIndicies();
+            ObjModel tMeshObj = new ObjModel(verts, inds);
+            //Rotating mesh
+            Matrix startTransform = Matrix.Translation( //translation
+                          0,
+                          0,
+                          -65535.0f
+                      );
+
+            Matrix rotMatrix = Matrix.RotationAxis(new WarZoneLib.Vector3(1, 0, 0), -(float)Math.PI / 2);
+            // Matrix rot2D = Matrix.RotationZ(-(float)(Math.PI / 2));
+            // rotMatrix = rot2D * rotMatrix * Matrix.RotationX(-(float)Math.PI / 2);
+            Matrix scaleMatrix = Matrix.Scaling(1f, 1f, 1f);
+            startTransform = scaleMatrix * rotMatrix * startTransform;
+
+            for (int i = 0; i < tMeshObj.Vertices.Length; i += 3)
+            {
+                WarZoneLib.Vector3 result = startTransform.TransformPoint(new WarZoneLib.Vector3(tMeshObj.Vertices[i], tMeshObj.Vertices[i + 1], tMeshObj.Vertices[i + 2]));
+                verts_out.Add(result);
+            }
+
+            tMeshObj = new ObjModel(verts_out, inds);
+            //  tMeshObj.SerializeObj(Path.Combine(path, $"terrain_rotate.obj"));
+
+            if (File.Exists(Path.Combine(path, "zoneInfo.bin"))) //new fast reading
+            {
+                using (BinaryReader reader = new BinaryReader(new FileStream(Path.Combine(path, "zoneInfo.bin"), FileMode.Open)))
+                {
+                    byte version = reader.ReadByte();
+
+                    int count = reader.ReadInt32();
+                    int structSize = System.Runtime.InteropServices.Marshal.SizeOf(typeof(NifInfo));
+                    byte[] arr = new byte[structSize];
+                    for (int i = 0; i < count; ++i)
+                    {
+                        reader.Read(arr, 0, arr.Length);
+                        NifInfo info = Utils.BytesToStruct<NifInfo>(arr);
+                        ModelInfos.Add(info.ID, info);
+                    }
+                    count = reader.ReadInt32();
+                    structSize = System.Runtime.InteropServices.Marshal.SizeOf(typeof(CommonFConv.FixtureInfo));
+                    arr = new byte[structSize];
+                    for (int i = 0; i < count; ++i)
+                    {
+                        reader.Read(arr, 0, arr.Length);
+                        CommonFConv.FixtureInfo info = Utils.BytesToStruct<CommonFConv.FixtureInfo>(arr);
+                        FixtureInfos.Add(info.ID, info);
+                    }
+                }
+            }
+            GC.Collect();
+
+            /*if (File.Exists(Path.Combine(dir, "water.bin")))
+            {
+                using (BinaryReader reader = new BinaryReader(new FileStream(Path.Combine(dir, "water.bin"), FileMode.Open)))
+                {
+                    byte version = reader.ReadByte();
+                    int count = reader.ReadInt32();
+                    bodies.Capacity = count;
+                    for (int i = 0; i < count; ++i)
+                    {
+                        WaterBody body = new WaterBody();
+                        body.Deserialize(reader);
+                        bodies.Add(body);
+                    }
+                }
+            }
+            GC.Collect();
+            */
+
+            Console.WriteLine($"- Added mesh for terrain");
+            List<ObjModel> modelsObj = new List<ObjModel>();
+            foreach (int key in FixtureInfos.Keys)
+            {
+                List<WarZoneLib.Vector3> verticesExport = new List<WarZoneLib.Vector3>();
+                List<int> indexesExport = new List<int>();
+                CommonFConv.FixtureInfo info = FixtureInfos[key];
+                if (!ModelInfos.ContainsKey(info.NifID))
+                {
+                    Console.WriteLine($"Missing fixture info: {info.NifID} - {info.Name} in {path}");
+                    continue;
+                }
+                if (!models.ContainsKey(ModelInfos[info.NifID].ModelName))
+                {
+                    //  Log.Debug("[OCCLUSION]", $"Missing model: {ModelInfos[info.NifID].ModelName}");
+                    continue;
+                }
+
+
+                NifInfo nif = ModelInfos[info.NifID];
+                ObjModel model = models[nif.ModelName];
+                startTransform = Matrix.Translation( //translation
+                        65535.0f - (float)info.X,
+                        (float)info.Y,
+                        (float)info.Z
+                    );
+
+                rotMatrix = Matrix.RotationAxis(new WarZoneLib.Vector3(-(float)info.XAxis, (float)info.YAxis, (float)info.ZAxis), (float)info.Angle3D);
+                float angle2D = Utils.Clamp(info.O, nif.MinAngle, nif.MinAngle) / 180.0f * (float)Math.PI;
+                Matrix rot2D = Matrix.RotationZ(angle2D);
+                rotMatrix = rot2D * rotMatrix * Matrix.RotationZ((float)Math.PI);
+                scaleMatrix = Matrix.Scaling(info.Scale / 100.0f, info.Scale / 100.0f, info.Scale / 100.0f);
+                startTransform = scaleMatrix * rotMatrix * startTransform;
+
+                for (int i = 0; i < model.Vertices.Length; i += 3)
+                {
+                    WarZoneLib.Vector3 result = startTransform.TransformPoint(new WarZoneLib.Vector3(model.Vertices[i], model.Vertices[i + 1], model.Vertices[i + 2]));
+                    verticesExport.Add(result);
+                }
+
+                for (int i = 0; i < model.Polygons.Length; i += 3)
+                {
+                    indexesExport.Add(model.Polygons[i + 0]);
+                    indexesExport.Add(model.Polygons[i + 1]);
+                    indexesExport.Add(model.Polygons[i + 2]);
+                }
+                model = new ObjModel(verticesExport, indexesExport.ToArray());
+
+                //Rotating it again...
+                startTransform = Matrix.Translation( //translation
+                      0,
+                      0,
+                      -65535.0f
+                  );
+
+                rotMatrix = Matrix.RotationAxis(new WarZoneLib.Vector3(1, 0, 0), -(float)Math.PI / 2);
+                scaleMatrix = Matrix.Scaling(1f, 1f, 1f);
+                startTransform = scaleMatrix * rotMatrix * startTransform;
+
+                for (int i = 0; i < model.Vertices.Length; i += 3)
+                {
+                    WarZoneLib.Vector3 result = startTransform.TransformPoint(new WarZoneLib.Vector3(model.Vertices[i], model.Vertices[i + 1], model.Vertices[i + 2]));
+                    verts_out.Add(result);
+                }
+
+                model = new ObjModel(verts_out, model.Polygons);
+                modelsObj.Add(model);
+
+                Console.WriteLine($"- Added mesh for: {info.UniqueID}, {nif.ModelName}");
+            }
+            Console.WriteLine($"- Generating mesh for navmesh....");
+            // tMeshObj.SerializeObj(Path.Combine(path, $"nav.obj"));
+            modelsObj.Add(tMeshObj);
+            using (BinaryWriter writer = new BinaryWriter(new FileStream(Path.Combine(path, $"{zoneID}_nav.bin"), FileMode.Create)))
+            {
+                foreach (ObjModel mod in modelsObj)
+                    mod.Serialize(writer);
+            }
+        }
+
+        private static void PerformPackHeightmaps(string pathIn, string pathOut)
+        {
+            string[] dirs = Directory.GetDirectories(pathIn);
+            int processed = 0;
+            Dictionary<int, int> Regions = new Dictionary<int, int>();
+            Dictionary<int, string> Names = new Dictionary<int, string>();
+
+            //Loading data
+            using (StreamReader reader = new StreamReader(new FileStream(Path.Combine("zones.dat"), FileMode.Open)))
+            {
+                string line = null;
+                while ((line = reader.ReadLine()) != null)
+                {
+                    if (line.Contains("[zone"))
+                    {
+                        line = line.Remove(8);
+                        line = line.Remove(0, 5);
+                        line = line.TrimStart('0');
+                        int zId = Convert.ToInt32(line);
+                        line = reader.ReadLine();
+                        bool regionFound = false;
+                        bool nameFound = false;
+                        while (!(line.Contains("region=") || line.Contains("name=")))
+                        {
+                            line = reader.ReadLine();
+                            if (line.Contains("region"))
+                            {
+                                line = line.Split('=')[1];
+                                int region = Convert.ToInt32(line);
+                                if (!Regions.ContainsKey(zId))
+                                {
+                                    Regions.Add(zId, region);
+                                }
+                                regionFound = true;
+                            }
+                            else if (line.Contains("name"))
+                            {
+                                line = line.Split('=')[1];
+                                string name = line;
+                                if (!Names.ContainsKey(zId))
+                                {
+                                    Names.Add(zId, name);
+                                }
+                                nameFound = true;
+                            }
+                            if (nameFound && regionFound)
+                                break;
+                        }
+
+                    }
+                }
+            }
+
+            Dictionary<int, int[]> Offsets = new Dictionary<int, int[]>();
+            using (StreamReader reader = new StreamReader(new FileStream(Path.Combine("zoneinfo.csv"), FileMode.Open)))
+            {
+                string line = null;
+                while ((line = reader.ReadLine()) != null)
+                {
+                    int zoneId = Convert.ToInt32(line.Split(',')[0]);
+                    int xOff = Convert.ToInt32(line.Split(',')[1]);
+                    int yOff = Convert.ToInt32(line.Split(',')[2]);
+                    Offsets.Add(zoneId, new int[] { xOff, yOff });
+                }
+            }
+            foreach (var dir in dirs)
+            {
+                ++processed;
+                Console.WriteLine($"Packing: {dir}");
+                string num = Path.GetFileName(dir).Replace("zone", "");
+                num = RemoveZeros(num);
+                int zoneID = int.Parse(num);
+                if (!File.Exists(Path.Combine(pathOut, $"{zoneID}.bin")))
+                {
+                    if (Offsets.ContainsKey(zoneID))
+                    {
+                        PackTerrain(Names[zoneID], Regions[zoneID], Offsets[zoneID][0], Offsets[zoneID][1], dir, pathOut);
+                    }
+                    else
+                    {
+                        Console.WriteLine($"No offsets found for #{zoneID}");
+                    }
+                }
+                Console.WriteLine($"Packed zone #{zoneID}");
+            }
+        }
+
+        private static void PackTerrain(string zonename, int regionId, int xOff, int yOff, string dir, string pathOut)
+        {
+            string num = Path.GetFileName(dir).Replace("zone", "");
+            num = RemoveZeros(num);
+            int zoneID = int.Parse(num);
+
+            //Data to load
+            ushort[,] HeightMap;
+
+            //Loading data
+            int scaleFactor = 0;
+            int offsetFactor = 0;
+            byte[,] _OffsetData;
+            byte[,] _TerrainData;
+
+            using (StreamReader reader = new StreamReader(new FileStream(Path.Combine(dir, "sector.dat"), FileMode.Open)))
+            {
+                string line = null;
+                while ((line = reader.ReadLine()) != null)
+                {
+                    if (line.Contains("scalefactor"))
+                    {
+                        scaleFactor = Convert.ToInt32(line.Split('=')[1]);
+                    }
+                    if (line.Contains("offsetfactor"))
+                    {
+                        offsetFactor = Convert.ToInt32(line.Split('=')[1]);
+                    }
+                }
+            }
+
+            FreeImageAPI.FreeImageBitmap fiBitmap = new FreeImageAPI.FreeImageBitmap(new FileStream(Path.Combine(dir, "offset.pcx"), FileMode.Open));
+            Bitmap bitmap = fiBitmap.ToBitmap();
+            _OffsetData = new byte[bitmap.Width, bitmap.Height];
+            for (int x = 0; x < bitmap.Width; ++x)
+            {
+                for (int y = 0; y < bitmap.Height; ++y)
+                {
+                    _OffsetData[x, y] = bitmap.GetPixel(x, y).R;
+                }
+            }
+            bitmap.Dispose();
+
+            fiBitmap = new FreeImageAPI.FreeImageBitmap(new FileStream(Path.Combine(dir, "terrain.pcx"), FileMode.Open));
+            bitmap = fiBitmap.ToBitmap();
+            _TerrainData = new byte[bitmap.Width, bitmap.Height];
+            for (int x = 0; x < bitmap.Width; ++x)
+            {
+                for (int y = 0; y < bitmap.Height; ++y)
+                {
+                    _TerrainData[x, y] = bitmap.GetPixel(x, y).R;
+                }
+            }
+            bitmap.Dispose();
+
+            HeightMap = new ushort[_TerrainData.GetLength(0), _TerrainData.GetLength(1)];
+            for (int x = 0; x < _TerrainData.GetLength(0); x++)
+            {
+                for (int y = 0; y < _TerrainData.GetLength(1); y++)
+                {
+                    HeightMap[x, y] = (ushort)(scaleFactor * _TerrainData[x, y] + offsetFactor * _OffsetData[x, y]);
+                }
+            }
+
+            //Writing data
+            using (BinaryWriter writer = new BinaryWriter(new FileStream(Path.Combine(pathOut, $"{zoneID}.bin"), FileMode.Create)))
+            {
+                //Header
+                WriteHeader(writer);
+
+                //Write region info
+                writer.Write(zonename);
+                writer.Write(regionId); //region id
+                writer.Write(zoneID);
+                writer.Write(xOff << 12);
+                writer.Write(yOff << 12);
+
+
+                //Write Terrain info
+                writer.Write(HeightMap.GetLength(0));
+                writer.Write(HeightMap.GetLength(1));
+                for (int i = 0; i < HeightMap.GetLength(0); ++i)
+                {
+                    for (int j = 0; j < HeightMap.GetLength(1); ++j)
+                    {
+                        writer.Write((ushort)HeightMap[i, j]);
+                    }
+                }
+            }
+        }
+
+        //Dumb a little, searches output dir of all previous actions (requires zoneInfo.bin, water.bin, terrain.pcx, offset.pcx, holemap.pcx, sector.dat in every zone folder and fixtures.bin, zones.dat, zoneinfo.txt in root folder)
+        private static void PerformPackWZ(string pathIn, string pathOut, bool doorless)
+        {
+            string[] dirs = Directory.GetDirectories(pathIn);
+            int processed = 0;
+            Dictionary<string, ObjModel> models = new Dictionary<string, ObjModel>();
+            if (!File.Exists(Path.Combine(!doorless ? @"fixtures.bin" : "doorless_fixtures.bin")))
             {
                 ConsoleColor oldColor = Console.ForegroundColor;
                 Console.ForegroundColor = ConsoleColor.Red;
@@ -514,7 +737,7 @@ namespace FIlesConverter
                 Console.ForegroundColor = oldColor;
                 return;
             }
-            using (BinaryReader reader = new BinaryReader(new FileStream(Path.Combine(@"fixtures.bin"), FileMode.Open)))
+            using (BinaryReader reader = new BinaryReader(new FileStream(Path.Combine(!doorless ? @"fixtures.bin" : "doorless_fixtures.bin"), FileMode.Open)))
             {
                 byte version = reader.ReadByte();
                 int amt = reader.ReadInt32();
@@ -592,24 +815,6 @@ namespace FIlesConverter
             }
         }
 
-        private static T BytesToStruct<T>(byte[] rawData) where T : struct
-        {
-            T result = default(T);
-            try
-            {
-                IntPtr rawDataPtr = System.Runtime.InteropServices.Marshal.AllocHGlobal(rawData.Length);
-                System.Runtime.InteropServices.Marshal.Copy(rawData, 0, rawDataPtr, rawData.Length);
-
-                result = (T)System.Runtime.InteropServices.Marshal.PtrToStructure(rawDataPtr, typeof(T));
-                System.Runtime.InteropServices.Marshal.FreeHGlobal(rawDataPtr);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.ToString());
-            }
-            return result;
-        }
-
         private static void PackZoneOld(Dictionary<string, ObjModel> models, int regionId, int xOff, int yOff, string dir, string pathOut)
         {
             string num = Path.GetFileName(dir).Replace("zone", "");
@@ -617,17 +822,18 @@ namespace FIlesConverter
             int zoneID = int.Parse(num);
 
             //Data to load
-            Dictionary<int, FixtureInfo> FixtureInfos = new Dictionary<int, FixtureInfo>();
+            Dictionary<int, CommonFConv.FixtureInfo> FixtureInfos = new Dictionary<int, CommonFConv.FixtureInfo>();
             Dictionary<int, NifInfo> ModelInfos = new Dictionary<int, NifInfo>();
             List<WaterBody> bodies = new List<WaterBody>();
-            ushort[,] HeightMap;
-            bool[,] HoleMap;
+
 
             //Loading data
             int scaleFactor = 0;
             int offsetFactor = 0;
             byte[,] _OffsetData;
             byte[,] _TerrainData;
+            ushort[,] HeightMap;
+            bool[,] HoleMap;
 
             using (StreamReader reader = new StreamReader(new FileStream(Path.Combine(dir, "sector.dat"), FileMode.Open)))
             {
@@ -645,8 +851,7 @@ namespace FIlesConverter
                 }
             }
 
-            FreeImageAPI.FreeImageBitmap fiBitmap = new FreeImageAPI.FreeImageBitmap(new FileStream(Path.Combine(dir, "offset.pcx"), FileMode.Open));
-            Bitmap bitmap = fiBitmap.ToBitmap();
+            Bitmap bitmap = new Bitmap(new FileStream(Path.Combine(dir, "offset.png"), FileMode.Open));
             _OffsetData = new byte[bitmap.Width, bitmap.Height];
             for (int x = 0; x < bitmap.Width; ++x)
             {
@@ -657,8 +862,7 @@ namespace FIlesConverter
             }
             bitmap.Dispose();
 
-            fiBitmap = new FreeImageAPI.FreeImageBitmap(new FileStream(Path.Combine(dir, "terrain.pcx"), FileMode.Open));
-            bitmap = fiBitmap.ToBitmap();
+            bitmap = new Bitmap(new FileStream(Path.Combine(dir, "terrain.png"), FileMode.Open));
             _TerrainData = new byte[bitmap.Width, bitmap.Height];
             for (int x = 0; x < bitmap.Width; ++x)
             {
@@ -687,7 +891,7 @@ namespace FIlesConverter
 
             if (File.Exists(Path.Combine(dir, "holemap.pcx")))
             {
-                fiBitmap = new FreeImageAPI.FreeImageBitmap(new FileStream(Path.Combine(dir, "holemap.pcx"), FileMode.Open), FREE_IMAGE_FORMAT.FIF_PCX, FREE_IMAGE_LOAD_FLAGS.DEFAULT);
+                FreeImageAPI.FreeImageBitmap fiBitmap = new FreeImageAPI.FreeImageBitmap(new FileStream(Path.Combine(dir, "holemap.pcx"), FileMode.Open), FREE_IMAGE_FORMAT.FIF_PCX, FREE_IMAGE_LOAD_FLAGS.DEFAULT);
                 fiBitmap.Rescale(new Size(_TerrainData.GetLength(0), _TerrainData.GetLength(1)), FREE_IMAGE_FILTER.FILTER_BOX);
                 bitmap = fiBitmap.ToBitmap();
 
@@ -727,16 +931,16 @@ namespace FIlesConverter
                     for (int i = 0; i < count; ++i)
                     {
                         reader.Read(arr, 0, arr.Length);
-                        NifInfo info = BytesToStruct<NifInfo>(arr);
+                        NifInfo info = Utils.BytesToStruct<NifInfo>(arr);
                         ModelInfos.Add(info.ID, info);
                     }
                     count = reader.ReadInt32();
-                    structSize = System.Runtime.InteropServices.Marshal.SizeOf(typeof(FixtureInfo));
+                    structSize = System.Runtime.InteropServices.Marshal.SizeOf(typeof(CommonFConv.FixtureInfo));
                     arr = new byte[structSize];
                     for (int i = 0; i < count; ++i)
                     {
                         reader.Read(arr, 0, arr.Length);
-                        FixtureInfo info = BytesToStruct<FixtureInfo>(arr);
+                        CommonFConv.FixtureInfo info = Utils.BytesToStruct<CommonFConv.FixtureInfo>(arr);
                         FixtureInfos.Add(info.ID, info);
                     }
                 }
@@ -784,6 +988,11 @@ namespace FIlesConverter
 
                 //Write Terrain info
                 ms = new MemoryStream();
+                TerrainMesh tMesh = Utils.CreateTerrain(ref HeightMap, ref HoleMap);
+                float[] verts = tMesh.BuildVertices();
+                int[] inds = tMesh.BuildIndicies();
+                ObjModel tModel = new ObjModel(verts, inds);
+                tModel.SerializeObj(Path.Combine(pathOut, $"{zoneID}_terrain.obj"));
                 using (BinaryWriter writer2 = new BinaryWriter(ms))
                 {
                     writer2.Write(regionId); //region id
@@ -805,7 +1014,7 @@ namespace FIlesConverter
                     {
                         for (int j = 0; j < HoleMap.GetLength(1); ++j)
                         {
-                            if (HoleMap[i, j])
+                            if (HoleMap[j, i])
                             {
                                 writer2.Write((byte)0);
                             }
@@ -832,7 +1041,7 @@ namespace FIlesConverter
 
                     foreach (int key in FixtureInfos.Keys)
                     {
-                        FixtureInfo info = FixtureInfos[key];
+                        CommonFConv.FixtureInfo info = FixtureInfos[key];
                         if (!ModelInfos.ContainsKey(info.NifID))
                         {
                             Console.WriteLine($"Missing fixture info: {info.NifID} - {info.Name} in {dir}");
@@ -852,7 +1061,7 @@ namespace FIlesConverter
                             );
 
                         Matrix rotMatrix = Matrix.RotationAxis(new WarZoneLib.Vector3(-(float)info.XAxis, (float)info.YAxis, (float)info.ZAxis), (float)info.Angle3D);
-                        float angle2D = Clamp(info.O, nif.MinAngle, nif.MinAngle) / 180.0f * (float)Math.PI;
+                        float angle2D = Utils.Clamp(info.O, nif.MinAngle, nif.MinAngle) / 180.0f * (float)Math.PI;
                         Matrix rot2D = Matrix.RotationZ(angle2D);
                         rotMatrix = rot2D * rotMatrix * Matrix.RotationZ((float)Math.PI);
                         Matrix scaleMatrix = Matrix.Scaling(info.Scale / 100.0f, info.Scale / 100.0f, info.Scale / 100.0f);
@@ -894,7 +1103,9 @@ namespace FIlesConverter
                     }
 
                     ObjModel model2 = new ObjModel(vertices, indexesExport);
-                    model2.SerializeObj(Path.Combine(pathOut, $"{zoneID}-fixtures.obj"));
+                 //   model2.SerializeObj(Path.Combine(pathOut, $"{zoneID}_fixtures.obj"));
+                    tModel.Append(model2);
+                    tModel.SerializeObj(Path.Combine(pathOut, $"{zoneID}_nav.obj"));
 
                     writer2.Write((int)(vertices.Count / 3));
 
@@ -988,21 +1199,6 @@ namespace FIlesConverter
                 bodies.Clear();
 
             }
-        }
-
-        private static float Clamp(int value, float low, float high)
-        {
-            if (high < low)
-            {
-                float temp = high;
-                high = low;// throw gcnew ArgumentException();
-                low = temp;
-            }
-            if (value < low)
-                return low;
-            if (value > high)
-                return high;
-            return value;
         }
 
         private static void WriteChunk(BinaryWriter writer, ChunkType chunkType, MemoryStream stream)
@@ -1119,7 +1315,7 @@ namespace FIlesConverter
                 }
                 if (cpointsWorld.Count > 2)
                 {
-                    Structures.TriangleNet.Meshing.GenericMesher mesher = new Structures.TriangleNet.Meshing.GenericMesher();
+                    GenericMesher mesher = new GenericMesher();
                     Polygon poly = new Polygon(cpointsWorld.Count);
                     foreach (Point p in cpointsWorld)
                     {
@@ -1156,7 +1352,7 @@ namespace FIlesConverter
             }
         }
 
-        private static void PerformNifToObj(string pathIn, string pathOut)
+        private static void PerformNifToObj(string pathIn, string pathOut, bool doorless)
         {
             string[] dirs = Directory.GetFiles(pathIn);
             int processed = 0;
@@ -1181,18 +1377,7 @@ namespace FIlesConverter
                     IEnumerable<NiNode> nodes = NodeWalker.GetRoots(nif);
                     List<float> verts = new List<float>();
                     List<int> tris = new List<int>();
-                    GathersCollision(ref verts, ref tris, nodes);
-                    for (int i = tris.Count - 3; i > 0; i -= 3)
-                    {
-                        if (((tris[i] - 1) > verts.Count / 3) ||
-                           ((tris[i + 1] - 1) > verts.Count / 3) ||
-                           ((tris[i + 2] - 1) > verts.Count / 3))
-                        {
-                            tris.RemoveAt(i + 2);
-                            tris.RemoveAt(i + 1);
-                            tris.RemoveAt(i);
-                        }
-                    }
+                    GathersCollision(ref verts, ref tris, nodes, doorless);
                     if (verts.Count > 0 && tris.Count > 0)
                     {
                         ObjModel model = new ObjModel(verts, tris);
@@ -1203,93 +1388,136 @@ namespace FIlesConverter
             }
         }
 
-        private static void GathersCollision(ref List<float> verts, ref List<int> tris, IEnumerable<NiNode> nodes)
+        private static void GathersCollision(ref List<float> verts, ref List<int> tris, IEnumerable<NiNode> nodes, bool doorless)
         {
             foreach (NiNode node in nodes)
             {
-                GetCollisionInfo(node, ref verts, ref tris, false, 7);
+                GetCollisionInfo(node, ref verts, ref tris, false, 7, doorless);
             }
         }
 
-        private static void GetCollisionInfo(NiNode node, ref List<float> verts, ref List<int> tris, bool inCollision, byte instanceId)
+        private static void GetCollisionInfo(NiNode node, ref List<float> verts, ref List<int> tris, bool inCollision, byte instanceId, bool doorless)
         {
+            bool ignoreChildren = false;
             //Console.WriteLine($"Processing node: {GetNodeName(node)} ({node.GetType().Name})");
             if (!inCollision)
             {
                 // We're in the collision subtree if this node is called 'collidee'
-                inCollision = "collidee".Equals(GetNodeName(node));
+                inCollision = "collidee".Equals(((string)GetNodeName(node)).ToLower());
             }
             else
             {
                 //Nodes called 'nopick' can be present under a collidee node.
                 // These nodes signify that everything below should not occlude LOS.
-                inCollision = !"nopick".Equals(GetNodeName(node));
+                inCollision = !"nopick".Equals(((string)GetNodeName(node)).ToLower());
             }
-            if ("door001".Equals(GetNodeName(node)))
+            if (doorless && ((string)GetNodeName(node)).ToLower().Contains("door00"))
+            {
+                ignoreChildren = true;
+            }
+            if ("door001".Equals(((string)GetNodeName(node)).ToLower()) && !doorless)
             {
                 instanceId = 0;
                 inCollision = true;
             }
-            else if ("door002".Equals(GetNodeName(node)))
+            else if ("door002".Equals(((string)GetNodeName(node)).ToLower()) && !doorless)
             {
                 instanceId = 1;
                 inCollision = true;
             }
-            else if ("door003".Equals(GetNodeName(node)))
+            else if ("door003".Equals(((string)GetNodeName(node)).ToLower()) && !doorless)
             {
                 instanceId = 2;
                 inCollision = true;
             }
-            else if ("door004".Equals(GetNodeName(node)))
+            else if ("door004".Equals(((string)GetNodeName(node)).ToLower()) && !doorless)
             {
                 instanceId = 3;
                 inCollision = true;
             }
-            else if ("door005".Equals(GetNodeName(node)))
+            else if ("door005".Equals(((string)GetNodeName(node)).ToLower()) && !doorless)
             {
                 instanceId = 4;
                 inCollision = true;
             }
-            else if ("door006".Equals(GetNodeName(node)))
+            else if ("door006".Equals(((string)GetNodeName(node)).ToLower()) && !doorless)
             {
                 instanceId = 5;
+                inCollision = true;
+            }
+            else if ("door007".Equals(((string)GetNodeName(node)).ToLower()) && !doorless)
+            {
+                instanceId = 6;
+                inCollision = true;
+            }
+            else if ("door008".Equals(((string)GetNodeName(node)).ToLower()) && !doorless)
+            {
+                instanceId = 7;
+                inCollision = true;
+            }
+            else if ("door009".Equals(((string)GetNodeName(node)).ToLower()) && !doorless)
+            {
+                instanceId = 8;
+                inCollision = true;
+            }
+            else if ("door010".Equals(((string)GetNodeName(node)).ToLower()) && !doorless)
+            {
+                instanceId = 9;
                 inCollision = true;
             }
             if (inCollision)
             {
 
                 // Console.WriteLine($"Getting triangles from: {GetNodeName(node)}");
-                
+
                 TriangleCollection col = TriangleWalker.GetTrianglesFromNode(node, false);
                 int vertOffset = verts.Count;
                 foreach (OpenTK.Vector3 vertex in col.Vertices)
                 {
                     verts.Add(vertex.X); verts.Add(vertex.Y); verts.Add(vertex.Z);
                 }
-
+                uint minVert = uint.MaxValue;
                 foreach (TriangleIndex index in col.Indices)
                 {
-                    tris.Add((int)index.A + 1 + vertOffset);
-                    tris.Add((int)index.B + 1 + vertOffset);
-                    tris.Add((int)index.C + 1 + vertOffset);
+                    if (index.A > minVert)
+                    {
+                        minVert = index.A;
+                    }
+                    if (index.B > minVert)
+                    {
+                        minVert = index.B;
+                    }
+                    if (index.C > minVert)
+                    {
+                        minVert = index.C;
+                    }
+                }
+                foreach (TriangleIndex index in col.Indices)
+                {
+                    tris.Add((int)((int)index.A + 1 + vertOffset / 3));
+                    tris.Add((int)((int)index.B + 1 + vertOffset / 3));
+                    tris.Add((int)((int)index.C + 1 + vertOffset / 3));
                 }
 
                 //  Console.WriteLine($"Added: verts - {col.Vertices.Length}, tris - {col.Indices.Length}");
             }
-            IEnumerable<NiAVObject> children = NodeWalker.GetChildren(node);
-            foreach (NiAVObject child in children)
+            if (!ignoreChildren)
             {
-                if (child is NiNode)
+                IEnumerable<NiAVObject> children = NodeWalker.GetChildren(node);
+                foreach (NiAVObject child in children)
                 {
-                    GetCollisionInfo(child as NiNode, ref verts, ref tris, inCollision, instanceId);
-                }
-                else
-                {
-                    //    Console.WriteLine($"{child.Name} is not a node ({child.GetType()})");
+                    if (child is NiNode)
+                    {
+                        GetCollisionInfo(child as NiNode, ref verts, ref tris, inCollision, instanceId, doorless);
+                    }
+                    else
+                    {
+                        //    Console.WriteLine($"{child.Name} is not a node ({child.GetType()})");
+                    }
                 }
             }
         }
-       
+
         private static object GetNodeName(NiNode node)
         {
             if (node != null && node.Name != null)
@@ -1411,7 +1639,7 @@ namespace FIlesConverter
         private static void SaveZone(string path, string destination)
         {
             Dictionary<int, NifInfo> ModelInfos = new Dictionary<int, NifInfo>();
-            Dictionary<int, FixtureInfo> FixtureInfos = new Dictionary<int, FixtureInfo>();
+            Dictionary<int, CommonFConv.FixtureInfo> FixtureInfos = new Dictionary<int, CommonFConv.FixtureInfo>();
             int scaleFactor = 0;
             int offsetFactor = 0;
             byte[,] _OffsetData;
@@ -1503,7 +1731,7 @@ namespace FIlesConverter
                 }
             }
 
-            TerrainMesh tMesh = CreateTerrain(ref HeightMap, ref HoleMap);
+            TerrainMesh tMesh = Utils.CreateTerrain(ref HeightMap, ref HoleMap);
             float[] verts = tMesh.BuildVertices();
             int[] inds = tMesh.BuildIndicies();
             ObjModel model = new ObjModel(verts, inds);
@@ -1558,7 +1786,7 @@ namespace FIlesConverter
                         double yAxis = double.Parse(split[17].Replace(".", ","));
                         double zAxis = double.Parse(split[18].Replace(".", ","));
                         if (!name.Contains("vfx_") && !name.Contains("tk_z_") && !name.Contains("sky_") && collide != 0)
-                            FixtureInfos.Add(id, new FixtureInfo(id, (ushort)uID, (byte)7, nifId, name, x, y, z, o, scale, angle3D, xAxis, yAxis, zAxis));
+                            FixtureInfos.Add(id, new CommonFConv.FixtureInfo(id, (ushort)uID, (byte)7, nifId, name, x, y, z, o, scale, angle3D, xAxis, yAxis, zAxis));
                     }
                     catch (Exception x)
                     {
@@ -1586,167 +1814,14 @@ namespace FIlesConverter
                 writer.Write((int)ModelInfos.Count);
                 foreach (int key in ModelInfos.Keys)
                 {
-                    writer.Write(StructToBytes<NifInfo>(ModelInfos[key]));
+                    writer.Write(Utils.StructToBytes<NifInfo>(ModelInfos[key]));
                 }
                 writer.Write((int)FixtureInfos.Count);
                 foreach (int key in FixtureInfos.Keys)
                 {
-                    writer.Write(StructToBytes<FixtureInfo>(FixtureInfos[key]));
+                    writer.Write(Utils.StructToBytes<CommonFConv.FixtureInfo>(FixtureInfos[key]));
                 }
             }
-        }
-
-        private static TerrainMesh CreateTerrain(ref ushort[,] heightMap, ref bool[,] holeMap)
-        {
-            int Height = heightMap.GetLength(0);
-            int Width = heightMap.GetLength(1);
-            TerrainMesh mesh = new TerrainMesh(Width, Height);
-            int increment = 2;
-
-            int vertId = 0;
-            for (int x = 0; x < Width; x += increment)
-            {
-                for (int y = 0; y < Height; y += increment)
-                {
-                    float x0 = 0, y0 = 0, z0 = 0;
-                    GetVertexPosition(x, y, ref x0, ref y0, ref z0, heightMap);
-                    if (holeMap[1023 - x, y] != true)
-                    {
-                        mesh.HeightMap[x, y].ID = vertId++;
-                        mesh.HeightMap[x, y].X = x0;
-                        mesh.HeightMap[x, y].Y = y0;
-                        mesh.HeightMap[x, y].Z = z0;
-                        mesh.HeightMap[x, y].Type = VertexType.Valid;
-                    }
-                }
-            }
-            //build polygons
-            for (int x = 0; x < Width - increment; x += increment)
-            {
-                for (int y = 0; y < Height - increment; y += increment)
-                {
-                    if (mesh.HeightMap[x, y].Type != VertexType.Hole)
-                    {
-                        if (mesh.HeightMap[x + increment, y].Type != VertexType.Hole &&
-                            mesh.HeightMap[x, y + increment].Type != VertexType.Hole)
-                        {
-                            mesh.Polygons.Add(new TerrainPolygon(mesh.HeightMap[x, y], mesh.HeightMap[x + increment, y], mesh.HeightMap[x, y + increment]));
-                        }
-                    }
-                    if (mesh.HeightMap[x, y + increment].Type != VertexType.Hole)
-                    {
-                        if (mesh.HeightMap[x + increment, y + increment].Type != VertexType.Hole &&
-                            mesh.HeightMap[x + increment, y].Type != VertexType.Hole)
-                        {
-                            mesh.Polygons.Add(new TerrainPolygon(mesh.HeightMap[x, y + increment], mesh.HeightMap[x + increment, y], mesh.HeightMap[x + increment, y + increment]));
-                        }
-                    }
-                }
-            }
-            return mesh;
-        }
-        /*
-        private static float[] BuildVertices(ushort[,] HeightMap)
-        {
-            int Height = HeightMap.GetLength(0);
-            int Width = HeightMap.GetLength(1);
-            int numVerts = Width * Height;
-            float[] arr = new float[numVerts * 3];
-
-            for (int x = 0; x < Width; x++)
-            {
-                for (int y = 0; y < Height; y++)
-                {
-                    float x0 = 0, y0 = 0, z0 = 0;
-                    GetVertexPosition(x, y, ref x0, ref y0, ref z0, HeightMap);
-
-                    arr[x * 3 * Width + y * 3] = x0;
-                    arr[x * 3 * Width + y * 3 + 1] = y0;
-                    arr[x * 3 * Width + y * 3 + 2] = z0;
-                }
-            }
-            return arr;
-        }
-                private static int[] BuildIndicies(ushort[,] HeightMap)
-        {
-            int Height = HeightMap.GetLength(0);
-            int Width = HeightMap.GetLength(1);
-            // FIXME: switch divide based on height delta
-            int NumTriangles = 2 * (Width - 1) * (Height - 1);
-            int[] indices = new int[3 * NumTriangles];
-            int i = 0;
-            for (int x = 0; x < Width - 1; x++)
-            {
-                for (int y = 0; y < Height - 1; y++)
-                {
-                    int b = x * Height; // base vertex index for this row
-
-                    indices[i++] = b + y;
-                    indices[i++] = b + y + Height;
-                    indices[i++] = b + y + 1;
-
-                    indices[i++] = b + y + 1;
-                    indices[i++] = b + y + Height;
-                    indices[i++] = b + y + Height + 1;
-                }
-            }
-            return indices;
-        }
-
-
-        private static void CutHoles(ref float[] verts, ref int[] inds, ushort[] holeMap, ushort[,] HeightMap)
-        {
-            int Height = HeightMap.GetLength(0);
-            int Width = HeightMap.GetLength(1);
-            List<int> indexCopy = new List<int>(inds);
-            List<float> vertexCopy = new List<float>(verts);
-            for (int i = 0; i < holeMap.Length; i += 2)
-            {
-                ushort x = (ushort)(Height - holeMap[i]);
-                ushort y = holeMap[i + 1];
-                int holeIndex = x * Height + y;
-                for (int i2 = indexCopy.Count - 3; i2 > 0; i2 -= 3)
-                {
-                    if (indexCopy[i2] == holeIndex ||
-                       indexCopy[i2 + 1] == holeIndex ||
-                       indexCopy[i2 + 2] == holeIndex)
-                    {
-                        indexCopy.RemoveAt(i2 + 2);
-                        indexCopy.RemoveAt(i2 + 1);
-                        indexCopy.RemoveAt(i2);
-                    }
-                }
-            }
-            verts = vertexCopy.ToArray();
-            inds = indexCopy.ToArray();
-        }
-        */
-
-        public static void GetVertexPosition(int x, int y, ref float x0, ref float y0, ref float z0, ushort[,] HeightMap)
-        {
-            int Height = HeightMap.GetLength(0);
-            int Width = HeightMap.GetLength(1);
-            x0 = 65535.0f * x / (float)(Width - 1);
-            y0 = 65535.0f * y / (float)(Height - 1);
-            z0 = (float)HeightMap[Width - x - 1, y];
-        }
-
-
-        private static byte[] StructToBytes<T>(T data) where T : struct
-        {
-            byte[] rawData = new byte[Marshal.SizeOf(data)];
-            try
-            {
-                IntPtr rawDataPtr = Marshal.AllocHGlobal(rawData.Length);
-                Marshal.StructureToPtr(data, rawDataPtr, false);
-                Marshal.Copy(rawDataPtr, rawData, 0, rawData.Length);
-                Marshal.FreeHGlobal(rawDataPtr);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex);
-            }
-            return rawData;
         }
 
         public static string RemoveZeros(string input)
@@ -1839,11 +1914,11 @@ namespace FIlesConverter
             }
         }
 
-        private static void PerformPack(string pathSource, string pathDestination)
+        private static void PerformPack(string pathSource, string pathDestination, string name = "fixtures.bin")
         {
             string[] dirs = Directory.GetFiles(pathSource);
             int processed = 0;
-            using (BinaryWriter writer = new BinaryWriter(new FileStream(Path.Combine(pathDestination, "fixtures.bin"), FileMode.Create)))
+            using (BinaryWriter writer = new BinaryWriter(new FileStream(Path.Combine(pathDestination, name), FileMode.Create)))
             {
                 writer.Write((byte)0); //version
                 writer.Write((int)dirs.Length);
@@ -1852,6 +1927,29 @@ namespace FIlesConverter
                     processed++;
                     Console.WriteLine($"Saving: {file}");
                     writer.Write((string)Path.GetFileNameWithoutExtension(file));
+                    byte[] arr = File.ReadAllBytes(file);
+                    writer.Write((int)arr.Length);
+                    writer.Write(arr);
+                    Console.WriteLine(processed + "/" + dirs.Length);
+                }
+            }
+        }
+
+        private static void PerformPackCpp(string pathSource, string pathDestination)
+        {
+            string[] dirs = Directory.GetFiles(pathSource);
+            int processed = 0;
+            using (BinaryWriter writer = new BinaryWriter(new FileStream(Path.Combine(pathDestination, "fixtures_cpp.bin"), FileMode.Create)))
+            {
+                writer.Write((byte)0); //version
+                writer.Write((int)dirs.Length);
+                foreach (var file in dirs)
+                {
+                    processed++;
+                    Console.WriteLine($"Saving: {file}");
+                    string filename = (string)Path.GetFileNameWithoutExtension(file);
+                    writer.Write(filename.Length);
+                    writer.Write(ASCIIEncoding.ASCII.GetBytes(filename));
                     byte[] arr = File.ReadAllBytes(file);
                     writer.Write((int)arr.Length);
                     writer.Write(arr);
