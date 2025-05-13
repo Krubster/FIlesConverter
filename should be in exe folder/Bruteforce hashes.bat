@@ -1,0 +1,1 @@
+FIlesConverter.exe -hashes -in="I:\WAR Tools\Files Converter\nifs unknown" -out="I:\WAR Tools\Files Converter\nifs dehash" -zonesFolder="I:\WAR Tools\Files Converter\zones"

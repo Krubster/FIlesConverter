@@ -1319,15 +1319,15 @@ namespace FIlesConverter
                     Polygon poly = new Polygon(cpointsWorld.Count);
                     foreach (Point p in cpointsWorld)
                     {
-                        poly.Add(new Vertex(65535f - (p.X - x_min), p.Y - y_min));
+                        poly.Add(new TriangleNet.Geometry.Vertex(65535f - (p.X - x_min), p.Y - y_min));
                     }
                     ConstraintOptions options = new ConstraintOptions();
                     options.ConformingDelaunay = false;
                     Mesh mesh = (Mesh)mesher.Triangulate(poly, options);
                     foreach (Edge edge in mesh.Edges)
                     {
-                        Vertex v1 = mesh.Vertices.ElementAt(edge.P0);
-                        Vertex v2 = mesh.Vertices.ElementAt(edge.P1);
+                        TriangleNet.Geometry.Vertex v1 = mesh.Vertices.ElementAt(edge.P0);
+                        TriangleNet.Geometry.Vertex v2 = mesh.Vertices.ElementAt(edge.P1);
                         gr.DrawLine(pen, new Point((int)((v1.X - x_min) * 1023f / 65535.0f), (int)((v1.Y + y_min) * 1023f / 65535.0f)), new Point((int)((v2.X - x_min) * 1023f / 65535.0f), (int)((v2.Y + y_min) * 1023f / 65535.0f)));
                     }
                     bodies.Add(new WaterBody(mesh, x_min, y_min, z, name, type));

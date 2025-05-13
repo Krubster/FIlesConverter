@@ -1,1 +1,1 @@
-FIlesConverter.exe -zones -in="D:\Repos\Krubster\WAAAAGH\bin\Debug\Zones" -out="D:\WAR Tools\Files Converter\zones"
+FIlesConverter.exe -zones -in="I:\WAR Tools\Files Converter\zones" -out="I:\WAR Tools\Files Converter\zones"

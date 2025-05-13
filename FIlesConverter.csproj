@@ -89,25 +89,34 @@
     <None Include="app.config" />
     <None Include="packages.config" />
     <None Include="should be in exe folder\1%29 nifToObj.bat" />
+    <None Include="should be in exe folder\1.1%29 nifToObj no doors.bat" />
     <None Include="should be in exe folder\2%29 simplify.bat" />
     <None Include="should be in exe folder\3.1%29 serialize lods.bat" />
     <None Include="should be in exe folder\3.2%29 serialize simplified.bat" />
+    <None Include="should be in exe folder\3.3%29 serialize fixtures.bat" />
+    <None Include="should be in exe folder\3.4%29 serialize fixtures doorless.bat" />
     <None Include="should be in exe folder\4%29 pack fixtures.bat" />
+    <None Include="should be in exe folder\4.1%29 pack fixtures cpp.bat" />
+    <None Include="should be in exe folder\4.2%29 pack raw fixtures.bat" />
+    <None Include="should be in exe folder\4.3%29 pack raw fixtures doorless.bat" />
     <None Include="should be in exe folder\5%29 water.bat" />
     <None Include="should be in exe folder\6%29 pack zones.bat" />
+    <None Include="should be in exe folder\7%29 gen navmesh.bat" />
+    <None Include="should be in exe folder\Bruteforce hashes.bat" />
+    <None Include="should be in exe folder\exportTerrain for tester.bat" />
     <None Include="should be in exe folder\exportTerrain.bat" />
-    <None Include="should be in exe folder\fixtures.bin" />
+    <None Include="should be in exe folder\oldWZPack doorless.bat" />
     <None Include="should be in exe folder\oldWZPack.bat" />
     <None Include="should be in exe folder\serializeAndPackFixtures.bat" />
     <None Include="should be in exe folder\serializeTerrain.bat" />
     <None Include="should be in exe folder\zoneInfo.csv" />
+    <None Include="should be in exe folder\zones.csv" />
     <None Include="should be in exe folder\zones.dat" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="obj-simplify.exe" />
     <Content Include="should be in exe folder\FreeImage.dll" />
     <Content Include="should be in exe folder\FreeImage.Standard.dll" />
-    <Content Include="should be in exe folder\models processing.txt" />
     <Content Include="should be in exe folder\NDesk.Options.dll" />
     <Content Include="should be in exe folder\Niflib.dll" />
     <Content Include="should be in exe folder\obj-simplify.exe" />

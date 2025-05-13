@@ -1,0 +1,1 @@
+FIlesConverter.exe -genNavmesh -in="I:\WAR Tools\Files Converter\zones" -out="I:\WAR Tools\Files Converter\zones"

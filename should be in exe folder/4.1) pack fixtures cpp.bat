@@ -1,0 +1,1 @@
+FIlesConverter.exe -packCpp -in="I:\WAR Tools\Files Converter\lod binaries" -out="I:\WAR Tools\Files Converter"

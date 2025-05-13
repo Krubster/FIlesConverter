@@ -42,14 +42,36 @@ namespace Niflib.Extensions
 		public uint B;
 		public uint C;
 	}
-	
+
+    public struct Vertex
+    {
+        public float X;
+		public float Y;
+		public float Z;
+    }
+
 	/// <summary>
 	/// Triangles Collection Struct with TriangleIndex'ed Vertices
 	/// </summary>
 	public struct TriangleCollection
 	{
 		public Vector3[] Vertices;
-		public TriangleIndex[] Indices;
+        public Vertex[] VertexCollection {
+            get
+            {
+                Vertex[] coll = new Vertex[Vertices.Length];
+                for (int i = 0; i < Vertices.Length; ++i)
+                {
+					coll[i].X = Vertices[i].X;
+					coll[i].Y = Vertices[i].Y;
+					coll[i].Z = Vertices[i].Z;
+                }
+
+                return coll;
+            }
+        }
+
+        public TriangleIndex[] Indices;
 	}
 	
 	/// <summary>
@@ -143,7 +165,7 @@ namespace Niflib.Extensions
 		{
 			if (geom.Data != null && geom.Data.IsValid() && geom.Data.Object != null)
 			{
-				Matrix transformation = geom.GetWorldMatrixFromNode();
+                Matrix transformation = geom.GetWorldMatrixFromNode();
 				// Shape Parsing
 				var shapeData = geom.Data.Object as NiTriShapeData;
 				if (shapeData != null && shapeData.HasVertices && shapeData.NumVertices >= 3)

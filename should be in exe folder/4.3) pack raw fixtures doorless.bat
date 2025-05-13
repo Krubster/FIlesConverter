@@ -1,0 +1,1 @@
+FIlesConverter.exe -pack -in="I:\WAR Tools\Files Converter\raw nif doorless binaries" -out="I:\WAR Tools\Files Converter" -doorless

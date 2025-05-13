@@ -1,0 +1,1 @@
+FIlesConverter.exe -nifToObj -in="I:\WAR Tools\Extracted\assetdb\fixtures" -out="I:\WAR Tools\Files Converter\raw obj doorless" -doorless

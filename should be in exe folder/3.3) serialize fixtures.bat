@@ -1,0 +1,1 @@
+FIlesConverter.exe -serialize -in="I:\WAR Tools\Files Converter\raw obj" -out="I:\WAR Tools\Files Converter\raw nif binaries"

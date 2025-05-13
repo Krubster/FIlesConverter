@@ -1,0 +1,1 @@
+FIlesConverter.exe -packHeightmaps -in="E:\WAR Tools\Extracted\zones" -out="E:\WAR Tools\Files Converter\tester terrain"
