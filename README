@@ -15,6 +15,8 @@ https://github.com/WarEmu/EasyMYP
 
 2.1) Download MeshLab v2022.02
 
+2.2) Install python 3.1.2 or higher (64 bit) and add to PATH
+
 3) Export all fixtures and zones info
 
 4) Convert all nifs to obj with FIlesConverter.exe
